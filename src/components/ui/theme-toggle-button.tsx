@@ -3,7 +3,7 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-export function ThemeToggleButton() {
+function ThemeToggleButton() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -24,3 +24,5 @@ export function ThemeToggleButton() {
     </button>
   );
 }
+
+export { ThemeToggleButton };
