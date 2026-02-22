@@ -43,3 +43,5 @@ next-env.d.ts
 # My
 .vscode
 __TODO
+components.json
+!.env-example
