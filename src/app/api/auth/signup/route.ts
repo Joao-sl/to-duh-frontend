@@ -22,13 +22,9 @@ export async function POST(request: NextRequest) {
       }),
     });
 
-    const apiResponse = await response.json();
+    const responseBody = await response.json();
 
-    if (!response.ok) {
-      return NextResponse.json(apiResponse, { status: response.status });
-    }
-
-    return NextResponse.json(apiResponse, { status: response.status });
+    return NextResponse.json(responseBody, { status: response.status });
   } catch {
     return NextResponse.json(
       { message: 'Internal error, please try again latter' },
