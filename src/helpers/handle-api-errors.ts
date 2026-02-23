@@ -11,9 +11,10 @@ export function handleApiErrors<T extends FieldValues>(
   if (!apiData.errors) {
     setError('root.server', {
       message: apiData.message
-        ? `${apiData.message}, this is not your fault, please try again latter`
+        ? `${apiData.message}`
         : 'Internal server error please try again later.',
     });
+    return;
   }
 
   Object.entries(apiData.errors).forEach(([key, message]) => {
