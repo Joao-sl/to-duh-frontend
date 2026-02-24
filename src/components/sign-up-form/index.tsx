@@ -117,6 +117,7 @@ function UsersSignUpForm() {
                       autoComplete='off'
                       aria-describedby='name-error'
                       aria-invalid={fieldState.invalid}
+                      aria-disabled={formState.isSubmitting}
                       disabled={formState.isSubmitting}
                       required
                     />
@@ -149,6 +150,7 @@ function UsersSignUpForm() {
                       autoComplete='on'
                       aria-describedby='email-error'
                       aria-invalid={fieldState.invalid}
+                      aria-disabled={formState.isSubmitting}
                       disabled={formState.isSubmitting}
                       required
                     />
@@ -181,6 +183,7 @@ function UsersSignUpForm() {
                       type={showPassword.password ? 'text' : 'password'}
                       aria-describedby='password-error'
                       aria-invalid={fieldState.invalid}
+                      aria-disabled={formState.isSubmitting}
                       disabled={formState.isSubmitting}
                       required
                     />
@@ -232,6 +235,7 @@ function UsersSignUpForm() {
                       type={showPassword.confirmPassword ? 'text' : 'password'}
                       aria-describedby='confirm-password-error'
                       aria-invalid={fieldState.invalid}
+                      aria-disabled={formState.isSubmitting}
                       disabled={formState.isSubmitting}
                       required
                     />
