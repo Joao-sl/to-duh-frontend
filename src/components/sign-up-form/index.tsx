@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
+import { signUpAction } from '@/app/actions/auth/signup';
 import { handleApiErrors } from '@/helpers/handle-api-errors';
 import { type SignUpSchema, signUpSchema } from '@/validations/schemas/auth';
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
@@ -33,44 +33,27 @@ import {
 } from '../ui/card';
 
 function UsersSignUpForm() {
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState({
     password: false,
     confirmPassword: false,
   });
-  const { control, setError, handleSubmit, formState, reset } =
-    useForm<SignUpSchema>({
-      resolver: zodResolver(signUpSchema),
-      defaultValues: {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      },
-      mode: 'onTouched',
-      reValidateMode: 'onChange',
-    });
+  const { control, setError, handleSubmit, formState } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+  });
 
   async function onSubmit(data: SignUpSchema) {
-    try {
-      const response = await fetch('api/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+    const response = await signUpAction(data);
 
-      const apiData = await response.json();
-
-      if (!response.ok) {
-        handleApiErrors(apiData, setError, signUpSchema);
-        return;
-      }
-
-      reset();
-      router.push(`/login?email=${apiData.email}&created=true`);
-    } catch {
-      setError('root.server', {
-        message: 'Internal server error please try again later.',
-      });
+    if (!response.success) {
+      handleApiErrors(response, setError, signUpSchema);
     }
   }
 
