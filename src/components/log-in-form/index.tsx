@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconAt, IconLock } from '@tabler/icons-react';
+import { loginAction } from '@/app/actions/auth/login';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { handleApiErrors } from '@/helpers/handle-api-errors';
 import { logInSchema, LogInSchema } from '@/validations/schemas/auth';
@@ -50,22 +51,12 @@ function UsersLogInForm() {
     });
 
   async function onSubmit(data: LogInSchema) {
-    const response = await fetch('api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+    const response = await loginAction(data);
 
-    const apiData = await response.json();
-
-    if (!response.ok) {
-      console.log(apiData);
-      handleApiErrors(apiData, setError, logInSchema);
+    if (!response.success) {
+      handleApiErrors(response, setError, logInSchema);
       setValue('password', '');
-      return;
     }
-
-    router.push('/hub');
   }
 
   return (
