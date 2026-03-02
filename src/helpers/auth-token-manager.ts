@@ -60,7 +60,7 @@ export async function setAuthCookies(
   }
 }
 
-export function isTokenExpired(token: string) {
+export function isTokenExpired(token: string | undefined) {
   if (!token) return true;
   const leewaySeconds = 30;
 

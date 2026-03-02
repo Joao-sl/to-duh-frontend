@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { REFRESH_COOKIE_NAME } from './helpers/auth-token-manager';
 
 export async function proxy(request: NextRequest) {
@@ -7,12 +7,22 @@ export async function proxy(request: NextRequest) {
   const isAuthPage = path === '/login' || path === '/signup';
   const isAuthenticated = request.cookies.get(REFRESH_COOKIE_NAME)?.value;
 
-  if (isAuthenticated && isAuthPage) {
+  if (path.startsWith('/_next') || path.startsWith('/_static')) {
+    return NextResponse.next();
+  }
+
+  const secFetchMode = request.headers.get('sec-fetch-mode') ?? '';
+  const accept = request.headers.get('accept') ?? '';
+  const isNavigationRequest =
+    request.method === 'GET' &&
+    (secFetchMode === 'navigate' || accept.includes('text/html'));
+
+  if (isAuthenticated && isAuthPage && isNavigationRequest) {
     url.pathname = '/hub';
     return NextResponse.redirect(url);
   }
 
-  if (!isAuthenticated && !isAuthPage) {
+  if (!isAuthenticated && !isAuthPage && isNavigationRequest) {
     url.pathname = '/login';
     return NextResponse.redirect(url);
   }
