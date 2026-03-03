@@ -24,11 +24,11 @@ export async function fetchWithAuth(
       await updateAccessToken();
     }
 
-    const response = await makeRequest(access);
+    let response = await makeRequest(access);
 
     if (response.status === 401) {
       await updateAccessToken();
-      await makeRequest(access);
+      response = await makeRequest(access);
     }
 
     return response;
