@@ -31,14 +31,20 @@ function UsersLogInForm() {
   const searchParams = useSearchParams();
   const emailParam = searchParams.get('email');
   const createdParam = searchParams.get('created');
+  const sessionExpiredParam = searchParams.get('session-expired');
   const router = useRouter();
 
   useEffect(() => {
     if (createdParam === 'true') {
       toast.success('Account created successfully');
     }
+    if (sessionExpiredParam === 'true') {
+      toast.info(
+        'Sorry, your session expired and your progress was not saved. Please log in again to continue.',
+      );
+    }
     router.replace('/login');
-  }, [router, createdParam]);
+  }, [router, createdParam, sessionExpiredParam]);
 
   const { control, formState, setError, setValue, handleSubmit } =
     useForm<LogInSchema>({
@@ -81,7 +87,7 @@ function UsersLogInForm() {
               name='email'
               control={control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={formState.isSubmitting}>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor='email'>Email</FieldLabel>
                   <InputGroup>
                     <InputGroupInput
@@ -111,7 +117,7 @@ function UsersLogInForm() {
               name='password'
               control={control}
               render={({ field, fieldState }) => (
-                <Field>
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor='password'>Password</FieldLabel>
                   <InputGroup>
                     <InputGroupInput

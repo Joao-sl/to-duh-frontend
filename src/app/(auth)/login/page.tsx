@@ -1,7 +1,9 @@
 import { cn } from '@/utils/cn';
+import { Suspense } from 'react';
 import { UsersLogInForm } from '@/components/log-in-form';
+import { Spinner } from '@/components/ui/spinner';
 
-export default function Login() {
+export default async function Login() {
   return (
     <div
       className={cn(
@@ -9,7 +11,15 @@ export default function Login() {
         'bg-linear-to-br from-transparent to-primary/25',
       )}
     >
-      <UsersLogInForm />
+      <Suspense
+        fallback={
+          <div className='flex size-svw'>
+            <Spinner />
+          </div>
+        }
+      >
+        <UsersLogInForm />
+      </Suspense>
     </div>
   );
 }
