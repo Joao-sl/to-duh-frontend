@@ -10,13 +10,13 @@ import {
 let refreshPromise: Promise<void> | null = null;
 
 export async function refreshAccessTokenAction() {
-  const refreshToken = await getRefreshToken();
-
   if (refreshPromise) {
     return refreshPromise;
   }
 
   refreshPromise = (async () => {
+    const refreshToken = await getRefreshToken();
+
     try {
       if (!refreshToken || isTokenExpired(refreshToken)) {
         throw new SessionExpiredError();
