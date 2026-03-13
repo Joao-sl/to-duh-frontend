@@ -1,5 +1,6 @@
 'use server';
 
+import { APP_ROOT_PATH } from '@/constants';
 import { setAuthCookies } from '@/helpers/auth-token-manager';
 import { logInSchema, LogInSchema } from '@/validations/schemas/auth';
 import { redirect } from 'next/navigation';
@@ -36,5 +37,5 @@ export async function loginAction(formData: LogInSchema) {
       statusCode: 500,
     };
   }
-  redirect('/hub');
+  redirect(APP_ROOT_PATH);
 }
