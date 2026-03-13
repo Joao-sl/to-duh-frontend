@@ -20,10 +20,10 @@ export async function getProjects() {
     const data = await response.json();
 
     if (!response.ok) {
-      return { success: false, ...data };
+      return { success: false, error: data };
     }
 
-    return { success: true, data: data };
+    return { success: true, data: data as ProjectData[] };
   } catch (error) {
     return { success: false, error: error };
   }
