@@ -11,7 +11,11 @@ export type ProjectData = {
   updated_at: string;
 };
 
-export async function getProjects() {
+export type GetProjectsResponse =
+  | { success: true; data: ProjectData[] }
+  | { success: false; error: { message: string } };
+
+export async function getProjects(): Promise<GetProjectsResponse> {
   try {
     const response = await fetchWithAuth(`${process.env.API_DOMAIN}/projects`, {
       method: 'GET',
@@ -23,8 +27,8 @@ export async function getProjects() {
       return { success: false, error: data };
     }
 
-    return { success: true, data: data as ProjectData[] };
-  } catch (error) {
-    return { success: false, error: error };
+    return { success: true, data: data };
+  } catch {
+    return { success: false, error: { message: 'Internal server error' } };
   }
 }
