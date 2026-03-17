@@ -118,7 +118,9 @@ function OverviewTab() {
 
           <div className='flex gap-2 mt-3 justify-end'>
             <DialogClose asChild>
-              <Button variant='secondary'>Cancel</Button>
+              <Button size='sm' variant='secondary'>
+                Cancel
+              </Button>
             </DialogClose>
             <Button
               size='sm'

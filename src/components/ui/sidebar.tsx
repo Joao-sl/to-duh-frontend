@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
-import { IconLayoutSidebar } from '@tabler/icons-react';
+import { IconChevronLeft } from '@tabler/icons-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   Sheet,
@@ -264,7 +264,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, open } = useSidebar();
 
   return (
     <Button
@@ -279,7 +279,9 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <IconLayoutSidebar />
+      <IconChevronLeft
+        className={cn('transition duration-500', !open && 'rotate-180')}
+      />
       <span className='sr-only'>Toggle Sidebar</span>
     </Button>
   );
