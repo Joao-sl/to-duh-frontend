@@ -21,7 +21,7 @@ export function handleApiErrors<T extends FieldValues>(
     if (formFields.includes(key)) {
       setError(key as Path<T>, {
         type: 'server',
-        message: String(message),
+        message: Array.isArray(message) ? message.join(`. `) : message,
       });
     } else {
       setError('root.server', {
