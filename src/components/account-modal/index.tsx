@@ -22,7 +22,9 @@ function AccountModal() {
       defaultOpen={true}
       onOpenChange={open => {
         if (!open) {
-          router.back();
+          setTimeout(() => {
+            router.back();
+          }, 200);
         }
       }}
     >
