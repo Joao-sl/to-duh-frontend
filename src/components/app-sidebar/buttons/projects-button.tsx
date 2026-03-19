@@ -19,6 +19,11 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 export function ProjectsButton() {
   const pathname = usePathname();
@@ -27,21 +32,33 @@ export function ProjectsButton() {
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild isActive={pathname.startsWith(basePath)}>
+      <SidebarMenuButton
+        tooltip={'Projects'}
+        asChild
+        isActive={pathname.startsWith(basePath)}
+      >
         <Link href={basePath}>
           <IconFolders strokeWidth={1} /> Projects
         </Link>
       </SidebarMenuButton>
 
       <Collapsible defaultOpen>
-        <CollapsibleTrigger
-          asChild
-          className='data-[state=open]:[&_svg]:rotate-180 [&_svg]:transition'
-        >
-          <SidebarMenuAction>
-            <IconChevronDown />
-          </SidebarMenuAction>
-        </CollapsibleTrigger>
+        <Tooltip delayDuration={700}>
+          <TooltipTrigger asChild>
+            <CollapsibleTrigger
+              asChild
+              className='data-[state=open]:[&_svg]:rotate-180 [&_svg]:transition'
+            >
+              <SidebarMenuAction>
+                <IconChevronDown />
+              </SidebarMenuAction>
+            </CollapsibleTrigger>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            <span>Expand/Collapse</span>
+          </TooltipContent>
+        </Tooltip>
 
         <CollapsibleContent>
           <SidebarMenuSub>

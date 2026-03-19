@@ -17,7 +17,7 @@ function AppSidebarHeader() {
   return (
     <SidebarHeader className='py-2'>
       <SidebarGroupLabel>
-        <h2 className='flex items-center gap-1'>TO~DUH</h2>
+        <h2>TO~DUH</h2>
       </SidebarGroupLabel>
 
       <SidebarMenu>
@@ -25,6 +25,7 @@ function AppSidebarHeader() {
           <SidebarMenuButton
             className='group-data-[collapsible=icon]:p-0! py-6 rounded-xl'
             asChild
+            tooltip='Profile'
           >
             <Link
               href='/account'

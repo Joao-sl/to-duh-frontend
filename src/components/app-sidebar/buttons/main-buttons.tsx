@@ -37,7 +37,7 @@ export function MainButtons() {
     <>
       <SidebarMenuItem>
         <CreateProjectModal>
-          <SidebarMenuButton>
+          <SidebarMenuButton tooltip={'Add project'}>
             <IconFolderPlus className='text-muted-foreground' /> Add project
           </SidebarMenuButton>
         </CreateProjectModal>
@@ -45,7 +45,11 @@ export function MainButtons() {
 
       {mainButtons.map((item, index) => (
         <SidebarMenuItem key={index}>
-          <SidebarMenuButton asChild isActive={pathname === item.href}>
+          <SidebarMenuButton
+            asChild
+            isActive={pathname === item.href}
+            tooltip={item.label}
+          >
             <Link href={item.href} className='[&_svg]:text-muted-foreground'>
               {item.icon} {item.label}
             </Link>
