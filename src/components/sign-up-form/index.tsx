@@ -60,12 +60,12 @@ function UsersSignUpForm() {
   return (
     <Card className='w-100 m-4 bg-transparent shadow-xl'>
       <CardHeader className='text-center'>
-        <div
-          aria-hidden
-          className='flex items-center justify-center font-black'
-        >
-          <div className='p-1'>LOGO</div>
+        <div className='flex items-center justify-center font-black'>
+          <Link href='/' className='p-1' aria-label='Go to home page'>
+            LOGO
+          </Link>
         </div>
+
         <CardTitle className='text-2xl'>Sign in with email</CardTitle>
         <CardDescription>
           Organize your tasks fast, simple and free
