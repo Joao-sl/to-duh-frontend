@@ -47,7 +47,7 @@ export function ProjectsButton() {
           <TooltipTrigger asChild>
             <CollapsibleTrigger
               asChild
-              className='data-[state=open]:[&_svg]:rotate-180 [&_svg]:transition'
+              className='aria-expanded:[&_svg]:rotate-180 [&_svg]:transition hover:bg-black/10 dark:hover:bg-white/10'
             >
               <SidebarMenuAction>
                 <IconChevronDown />
