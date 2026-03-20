@@ -14,7 +14,7 @@ function isTokenValid(token?: string) {
   if (!token) return false;
   try {
     jwtDecode(token);
-    return isTokenExpired(token);
+    return !isTokenExpired(token);
   } catch {
     return false;
   }
