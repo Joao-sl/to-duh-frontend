@@ -1,7 +1,7 @@
 'use client';
 
 import { UserContext } from '@/contexts/user-context';
-import { UserData } from '@/lib/http/get-current-user';
+import { UserData } from '@/lib/http/types/user';
 import { useEffect, useState } from 'react';
 
 type UserProviderProps = {

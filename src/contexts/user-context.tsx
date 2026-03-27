@@ -1,5 +1,5 @@
+import { UserData } from '@/lib/http/types/user';
 import { createContext, useContext } from 'react';
-import { UserData } from '@/lib/http/get-current-user';
 
 type UserContextValue = {
   user?: UserData;

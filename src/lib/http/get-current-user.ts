@@ -1,13 +1,5 @@
 import { fetchWithAuth } from '@/helpers/fetch-with-auth';
-
-export type UserData = {
-  id: number;
-  email: string;
-  name: string;
-  avatar: string | undefined;
-  created_at: string;
-  updated_at: string;
-};
+import { UserData } from './types/user';
 
 export async function getCurrentUser() {
   try {
