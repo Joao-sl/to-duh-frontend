@@ -48,7 +48,7 @@ function DatePicker({
             type='button'
             variant='outline'
             disabled={disabled}
-            className='hover:bg-transparent!'
+            className='hover:bg-transparent dark:hover:bg-input/50 font-normal'
           >
             <IconCalendar className='text-muted-foreground' />
             {selectedDate ? (
