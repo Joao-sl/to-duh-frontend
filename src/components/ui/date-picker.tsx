@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { useId, useMemo, useState } from 'react';
 import { Calendar } from '@/components/ui/calendar';
-import { IconCalendar, IconX } from '@tabler/icons-react';
+import { IconCalendar } from '@tabler/icons-react';
 import { format, parseISO, isValid, addYears } from 'date-fns';
 import {
   Popover,
@@ -58,18 +58,6 @@ function DatePicker({
             )}
           </Button>
         </PopoverTrigger>
-
-        {selectedDate && (
-          <Button
-            size='icon-xs'
-            variant='ghost'
-            onClick={() => onValueChange(undefined)}
-            aria-label='Clear date'
-            className='rounded-sm p-0.5 hover:bg-muted-foreground/25'
-          >
-            <IconX />
-          </Button>
-        )}
       </div>
 
       <PopoverContent
@@ -91,6 +79,22 @@ function DatePicker({
           disabled={{ before: today }}
           startMonth={today}
           endMonth={addYears(today, 20)}
+          footer={
+            selectedDate && (
+              <Button
+                size='xs'
+                variant='secondary'
+                onClick={() => {
+                  onValueChange(undefined);
+                  setOpen(false);
+                }}
+                aria-label='Clear date'
+                className='rounded-sm mt-2 p-3.5'
+              >
+                Clear
+              </Button>
+            )
+          }
         />
       </PopoverContent>
     </Popover>
