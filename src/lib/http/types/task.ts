@@ -2,7 +2,7 @@ export type TaskData = {
   id: number;
   title: string;
   description: string;
-  priority: 'low' | 'medium' | 'high';
+  priority: 'low' | 'medium' | 'high' | null;
   user_id: number;
   project_id: number;
   section_id: number | null;
