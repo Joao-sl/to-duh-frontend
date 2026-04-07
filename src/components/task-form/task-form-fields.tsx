@@ -202,50 +202,50 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
           )}
         />
 
-        <Controller
-          name='section_id'
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor='section' className='sr-only'>
-                Priority
-              </FieldLabel>
+        {sections && (
+          <Controller
+            name='section_id'
+            control={control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor='section' className='sr-only'>
+                  Priority
+                </FieldLabel>
 
-              <Select
-                onValueChange={val => {
-                  if (val === 'none') {
-                    field.onChange(undefined);
-                  } else {
-                    field.onChange(Number(val));
-                  }
-                }}
-              >
-                <SelectTrigger
-                  id='section'
-                  aria-describedby='task-section-error'
-                  aria-invalid={fieldState.invalid}
-                  disabled={formState.isSubmitting}
-                  aria-disabled={formState.isSubmitting}
-                  className='cursor-pointer'
-                >
-                  <SelectValue
-                    placeholder={
-                      <span className='flex items-center gap-2'>
-                        <IconLayersSelectedBottom /> Section
-                      </span>
+                <Select
+                  onValueChange={val => {
+                    if (val === 'none') {
+                      field.onChange(undefined);
+                    } else {
+                      field.onChange(Number(val));
                     }
-                  />
-                </SelectTrigger>
+                  }}
+                >
+                  <SelectTrigger
+                    id='section'
+                    aria-describedby='task-section-error'
+                    aria-invalid={fieldState.invalid}
+                    disabled={formState.isSubmitting}
+                    aria-disabled={formState.isSubmitting}
+                    className='cursor-pointer'
+                  >
+                    <SelectValue
+                      placeholder={
+                        <span className='flex items-center gap-2'>
+                          <IconLayersSelectedBottom /> Section
+                        </span>
+                      }
+                    />
+                  </SelectTrigger>
 
-                <SelectContent position='popper'>
-                  <SelectGroup>
-                    <SelectLabel>Sections</SelectLabel>
-                    <SelectItem value='none'>
-                      <span>None</span>
-                    </SelectItem>
+                  <SelectContent position='popper'>
+                    <SelectGroup>
+                      <SelectLabel>Sections</SelectLabel>
+                      <SelectItem value='none'>
+                        <span>None</span>
+                      </SelectItem>
 
-                    {sections &&
-                      sections.map((item, idx) => (
+                      {sections.map((item, idx) => (
                         <SelectItem
                           value={item.id.toString()}
                           title={item.name}
@@ -257,20 +257,21 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                           </span>
                         </SelectItem>
                       ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
 
-              {fieldState.invalid && (
-                <FieldError
-                  role='alert'
-                  id='task-section-error'
-                  errors={[fieldState.error]}
-                />
-              )}
-            </Field>
-          )}
-        />
+                {fieldState.invalid && (
+                  <FieldError
+                    role='alert'
+                    id='task-section-error'
+                    errors={[fieldState.error]}
+                  />
+                )}
+              </Field>
+            )}
+          />
+        )}
 
         <Controller
           name='due_at'
