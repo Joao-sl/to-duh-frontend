@@ -20,14 +20,24 @@ const baseTaskSchema = z.object({
   due_at: z.iso.datetime('Due at must be a valid ISO datetime'),
 });
 
-export const createTaskSchema = baseTaskSchema.partial({
-  section_id: true,
-  description: true,
-  priority: true,
-  due_at: true,
-});
+export const createTaskSchema = baseTaskSchema
+  .partial({
+    description: true,
+    priority: true,
+  })
+  .extend({
+    section_id: baseTaskSchema.shape.section_id.nullish(),
+    due_at: baseTaskSchema.shape.due_at.nullish(),
+    priority: baseTaskSchema.shape.priority.nullish(),
+  });
 
-export const updateTaskSchema = baseTaskSchema.partial();
+export const updateTaskSchema = baseTaskSchema
+  .omit({ project_id: true, section_id: true })
+  .partial()
+  .extend({
+    due_at: baseTaskSchema.shape.due_at.nullish(),
+    priority: baseTaskSchema.shape.priority.nullish(),
+  });
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
 export type UpdateTaskSchema = z.infer<typeof updateTaskSchema>;
