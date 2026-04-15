@@ -156,7 +156,7 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                 value={field.value ?? ''}
                 onValueChange={val => {
                   if (val === 'none') {
-                    field.onChange(undefined);
+                    field.onChange(null);
                   } else {
                     field.onChange(val);
                   }
@@ -215,7 +215,7 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                 <Select
                   onValueChange={val => {
                     if (val === 'none') {
-                      field.onChange(undefined);
+                      field.onChange(null);
                     } else {
                       field.onChange(Number(val));
                     }
