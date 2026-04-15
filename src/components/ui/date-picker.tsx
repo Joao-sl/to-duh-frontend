@@ -13,8 +13,8 @@ import {
 
 type DatePickerProps = {
   triggerId?: string;
-  value?: string;
-  onValueChange: (value?: string) => void;
+  value?: string | null;
+  onValueChange: (value?: string | null) => void;
   placeholder?: string;
   disabled?: boolean;
 };
@@ -72,7 +72,7 @@ function DatePicker({
           selected={selectedDate}
           defaultMonth={selectedDate ?? new Date()}
           onSelect={date => {
-            onValueChange(date ? date.toISOString() : undefined);
+            onValueChange(date ? date.toISOString() : null);
             setOpen(false);
           }}
           fixedWeeks
@@ -85,7 +85,7 @@ function DatePicker({
                 size='xs'
                 variant='secondary'
                 onClick={() => {
-                  onValueChange(undefined);
+                  onValueChange(null);
                   setOpen(false);
                 }}
                 aria-label='Clear date'
