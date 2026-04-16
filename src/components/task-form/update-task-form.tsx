@@ -34,9 +34,15 @@ function UpdateTaskForm({
     },
     mode: 'onSubmit',
   });
-  const { formState, reset, setError, handleSubmit } = form;
+  const { formState, reset, setError, getValues, handleSubmit } = form;
 
-  async function onSubmit(data: UpdateTaskSchema) {
+  async function onSubmit() {
+    const data = getValues(undefined, { dirtyFields: true });
+
+    if (Object.keys(data).length === 0) {
+      return;
+    }
+
     const response = await updateTaskAction(taskId, data);
 
     if (!response.success) {
