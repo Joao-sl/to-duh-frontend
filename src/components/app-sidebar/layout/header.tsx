@@ -1,24 +1,39 @@
 'use client';
 
 import Link from 'next/link';
+import { cn } from '@/utils/cn';
 import { useUserContext } from '@/contexts/user-context';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
 
 function AppSidebarHeader() {
   const { user } = useUserContext();
+  const { open } = useSidebar();
 
   return (
     <SidebarHeader className='py-2'>
-      <SidebarGroupLabel>
-        <h2>TO~DUH</h2>
-      </SidebarGroupLabel>
+      <div className='relative flex justify-between overflow-hidden'>
+        <h1
+          className={cn(
+            'absolute text-xs text-primary left-2 top-1/2 -translate-y-1/2 transition duration-300 ease-in-out whitespace-nowrap',
+            {
+              'opacity-0 -translate-y-4 pointer-events-none': !open,
+              'opacity-100 translate-x-0': open,
+            },
+          )}
+        >
+          TO~DUH
+        </h1>
+
+        <SidebarTrigger className='ml-auto' />
+      </div>
 
       <SidebarMenu>
         <SidebarMenuItem>
