@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '../ui/button';
 import { Spinner } from '../ui/spinner';
 import { TaskData } from '@/lib/http/types/task';
