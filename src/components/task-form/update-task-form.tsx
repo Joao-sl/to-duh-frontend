@@ -71,7 +71,7 @@ function UpdateTaskForm({
             aria-disabled={formState.isSubmitting}
             onClick={onCancel ?? (() => reset())}
           >
-            {formState.isSubmitting ? <Spinner /> : 'Cancel'}
+            Cancel
           </Button>
 
           <Button
