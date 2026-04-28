@@ -21,6 +21,7 @@ type CreateTaskFormProps = {
   sections: TaskFormFieldsSections[];
   onCancel?: () => void;
   onSuccess?: (data: TaskData) => void;
+  submissionMode?: 'server-action' | 'route-handler';
 };
 
 function CreateTaskForm({
@@ -28,6 +29,7 @@ function CreateTaskForm({
   sections,
   onCancel,
   onSuccess,
+  submissionMode = 'server-action',
 }: CreateTaskFormProps) {
   const form = useForm<CreateTaskSchema>({
     resolver: zodResolver(createTaskSchema),
@@ -44,7 +46,18 @@ function CreateTaskForm({
   const { formState, reset, setError, handleSubmit } = form;
 
   async function onSubmit(data: CreateTaskSchema) {
-    const response = await createTaskAction(data);
+    let response;
+
+    if (submissionMode === 'server-action') {
+      response = await createTaskAction(data);
+    } else {
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+
+      response = await res.json();
+    }
 
     if (!response.success) {
       handleApiErrors(response, setError, createTaskSchema);
@@ -72,7 +85,7 @@ function CreateTaskForm({
             aria-disabled={formState.isSubmitting}
             onClick={onCancel ?? (() => reset())}
           >
-            {formState.isSubmitting ? <Spinner /> : 'Cancel'}
+            Cancel
           </Button>
 
           <Button
