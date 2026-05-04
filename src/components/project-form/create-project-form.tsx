@@ -55,7 +55,9 @@ function CreateProjectForm({
     }
 
     if (onSuccess) {
-      onSuccess(response);
+      const { success, ...rest } = response;
+      void success;
+      onSuccess(rest);
     }
 
     reset();
