@@ -116,6 +116,12 @@ function ProjectFormFields() {
           );
         }}
       />
+
+      {formState.errors.root?.server && (
+        <p className='text-destructive mb-4 text-sm' role='alert'>
+          {formState.errors.root.server.message}
+        </p>
+      )}
     </FieldGroup>
   );
 }
