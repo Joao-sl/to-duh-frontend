@@ -1,43 +1,45 @@
-import z from 'zod';
+import * as z from 'zod';
 
-const baseTaskSchema = z.object({
+const taskFields = {
   project_id: z
     .number({ error: 'Project id must be a number' })
     .positive({ error: 'Project id must be a positive number' }),
+
   section_id: z
     .number({ error: 'Section id must be a number' })
     .positive({ error: 'Section id must be a positive number' }),
+
   title: z
     .string({ error: 'Title must be a string' })
     .min(1, { error: 'Title must be at least 1 character' })
     .max(255, { error: 'Title must have at most 255 characters' }),
+
   description: z
     .string({ error: 'Description must be a string' })
     .max(2000, { error: 'Description must have at most 2000 characters' }),
+
   priority: z.enum(['low', 'medium', 'high'], {
-    error: 'Priority accept only the values: low, medium or high',
+    error: 'Priority accepts only: low, medium or high',
   }),
-  due_at: z.iso.datetime('Due at must be a valid ISO datetime'),
+
+  due_at: z.iso.datetime(),
+};
+
+export const createTaskSchema = z.object({
+  project_id: taskFields.project_id,
+  title: taskFields.title,
+  section_id: taskFields.section_id.nullish(),
+  description: taskFields.description.optional(),
+  priority: taskFields.priority.nullish(),
+  due_at: taskFields.due_at.nullish(),
 });
 
-export const createTaskSchema = baseTaskSchema
-  .partial({
-    description: true,
-    priority: true,
-  })
-  .extend({
-    section_id: baseTaskSchema.shape.section_id.nullish(),
-    due_at: baseTaskSchema.shape.due_at.nullish(),
-    priority: baseTaskSchema.shape.priority.nullish(),
-  });
-
-export const updateTaskSchema = baseTaskSchema
-  .omit({ project_id: true, section_id: true })
-  .partial()
-  .extend({
-    due_at: baseTaskSchema.shape.due_at.nullish(),
-    priority: baseTaskSchema.shape.priority.nullish(),
-  });
+export const updateTaskSchema = z.object({
+  title: taskFields.title.optional(),
+  description: taskFields.description.optional(),
+  priority: taskFields.priority.nullish(),
+  due_at: taskFields.due_at.nullish(),
+});
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
 export type UpdateTaskSchema = z.infer<typeof updateTaskSchema>;
