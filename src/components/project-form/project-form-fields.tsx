@@ -1,3 +1,4 @@
+import { cn } from '@/utils/cn';
 import { Switch } from '../ui/switch';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
@@ -5,19 +6,28 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
+  InputGroupTextarea,
 } from '../ui/input-group';
 
-function ProjectFormFields() {
+type ProjectFormFieldsProps = {
+  hideLabels?: boolean;
+};
+
+function ProjectFormFields({ hideLabels = false }: ProjectFormFieldsProps) {
   const { control, formState } = useFormContext();
 
   return (
-    <FieldGroup>
+    <FieldGroup className={cn({ 'gap-3': hideLabels })}>
       <Controller
         name='name'
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor='name' required>
+            <FieldLabel
+              htmlFor='name'
+              required
+              className={cn({ 'sr-only': hideLabels })}
+            >
               Name
             </FieldLabel>
 
@@ -52,10 +62,15 @@ function ProjectFormFields() {
         control={control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor='description'>Description</FieldLabel>
+            <FieldLabel
+              htmlFor='description'
+              className={cn({ 'sr-only': hideLabels })}
+            >
+              Description
+            </FieldLabel>
 
             <InputGroup>
-              <InputGroupInput
+              <InputGroupTextarea
                 {...field}
                 id='description'
                 placeholder='Description of your project (optional)'
