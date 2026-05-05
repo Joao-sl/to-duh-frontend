@@ -19,4 +19,11 @@ export const createProjectSchema = z.object({
   is_favorite: projectFields.is_favorite.nullish(),
 });
 
+export const updateProjectSchema = z.object({
+  name: projectFields.name.optional(),
+  description: projectFields.description.nullish(),
+  is_favorite: projectFields.is_favorite.nullish(),
+});
+
 export type CreateProjectSchema = z.infer<typeof createProjectSchema>;
+export type UpdateProjectSchema = z.infer<typeof createProjectSchema>;
