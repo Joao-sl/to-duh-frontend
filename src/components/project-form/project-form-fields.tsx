@@ -1,5 +1,4 @@
 import { Switch } from '../ui/switch';
-import { IconAt, IconTextPlus } from '@tabler/icons-react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
 import {
@@ -36,10 +35,6 @@ function ProjectFormFields() {
                 required
               />
 
-              <InputGroupAddon>
-                <IconAt />
-              </InputGroupAddon>
-
               <InputGroupAddon align='inline-end'>
                 {field.value?.length}/80
               </InputGroupAddon>
@@ -71,10 +66,6 @@ function ProjectFormFields() {
                 aria-disabled={formState.isSubmitting}
                 disabled={formState.isSubmitting}
               />
-
-              <InputGroupAddon>
-                <IconTextPlus />
-              </InputGroupAddon>
 
               <InputGroupAddon align='inline-end'>
                 {field.value?.length}/255
