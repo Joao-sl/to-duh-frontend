@@ -35,7 +35,7 @@ function CreateProjectModal({ children }: CreateProjectModalProps) {
   }
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger onClick={() => setOpen(true)} asChild={asChild}>
         {children}
       </DialogTrigger>
