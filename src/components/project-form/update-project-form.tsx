@@ -17,7 +17,7 @@ type UpdateProjectFormProps = {
   projectId: number;
   initialValues: ProjectData;
   onSuccess?: (data: ProjectData) => void;
-  onCancel?: () => void;
+  onCancel?: (formIsDirty: boolean) => void;
   submissionMode?: 'server-action' | 'route-handler';
 };
 
@@ -74,6 +74,14 @@ function UpdateProjectForm({
     return data;
   }
 
+  function handleOnCancel() {
+    if (onCancel) {
+      return onCancel(formState.isDirty);
+    }
+
+    return reset();
+  }
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,7 +94,7 @@ function UpdateProjectForm({
             variant='secondary'
             disabled={formState.isSubmitting}
             aria-disabled={formState.isSubmitting}
-            onClick={onCancel ?? (() => reset())}
+            onClick={handleOnCancel}
           >
             Cancel
           </Button>
