@@ -1,6 +1,9 @@
 import * as z from 'zod';
 
 const sectionFields = {
+  project_id: z
+    .number({ error: 'Project id must be a number' })
+    .positive({ error: 'Project id must be a positive number' }),
   name: z
     .string()
     .min(1, { error: 'Name must have at least 1 character' })
@@ -9,6 +12,7 @@ const sectionFields = {
 };
 
 export const createSectionSchema = z.object({
+  project_id: sectionFields.project_id,
   name: sectionFields.name,
 });
 
