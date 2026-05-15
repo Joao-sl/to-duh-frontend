@@ -70,8 +70,6 @@ function UpdateProjectForm({
       void success;
       onSuccess(rest);
     }
-
-    return data;
   }
 
   function handleOnCancel() {
