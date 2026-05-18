@@ -8,9 +8,9 @@ export async function PATCH(
   context: RouteContext<'/api/sections/[id]'>,
 ) {
   const { id } = await context.params;
-  const projectId = Number(id);
+  const sectionId = Number(id);
 
-  if (!Number.isInteger(projectId) || projectId < 0) {
+  if (!Number.isInteger(sectionId) || sectionId < 0) {
     return NextResponse.json(
       {
         success: false,
@@ -33,7 +33,7 @@ export async function PATCH(
 
   try {
     const response = await fetchWithAuth(
-      `${process.env.API_DOMAIN}/sections/${projectId}`,
+      `${process.env.API_DOMAIN}/sections/${sectionId}`,
       {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
