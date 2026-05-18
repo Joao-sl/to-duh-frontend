@@ -7,7 +7,7 @@ import { SectionData } from '@/lib/http/types/section';
 import { FormProvider, useForm } from 'react-hook-form';
 import { SectionFormFields } from './section-form-fields';
 import { handleApiErrors } from '@/helpers/handle-api-errors';
-import { updateProjectAction } from '@/app/actions/project/update-project';
+import { updateSectionAction } from '@/app/actions/section/update-section';
 import {
   type UpdateSectionSchema,
   updateSectionSchema,
@@ -47,9 +47,9 @@ function UpdateSectionForm({
     }
 
     if (submissionMode === 'server-action') {
-      response = await updateProjectAction(sectionId, data);
+      response = await updateSectionAction(sectionId, data);
     } else {
-      const res = await fetch(`/api/projects/${sectionId}`, {
+      const res = await fetch(`/api/sections/${sectionId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
