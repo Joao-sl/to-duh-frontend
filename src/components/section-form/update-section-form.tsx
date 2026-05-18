@@ -14,15 +14,13 @@ import {
 } from '@/validations/schemas/sections';
 
 type UpdateProjectFormProps = {
-  sectionId: number;
-  initialValues: SectionData;
+  initialValues: Pick<SectionData, 'id' | 'name'>;
   onSuccess?: (data: SectionData) => void;
   onCancel?: (formIsDirty: boolean) => void;
   submissionMode?: 'server-action' | 'route-handler';
 };
 
 function UpdateSectionForm({
-  sectionId,
   initialValues,
   onSuccess,
   onCancel,
@@ -47,9 +45,9 @@ function UpdateSectionForm({
     }
 
     if (submissionMode === 'server-action') {
-      response = await updateSectionAction(sectionId, data);
+      response = await updateSectionAction(initialValues.id, data);
     } else {
-      const res = await fetch(`/api/sections/${sectionId}`, {
+      const res = await fetch(`/api/sections/${initialValues.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
