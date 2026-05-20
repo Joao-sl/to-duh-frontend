@@ -1,7 +1,7 @@
 import { flattenError } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchWithAuth } from '@/helpers/fetch-with-auth';
-import { updateProjectSchema } from '@/validations/schemas/projects';
+import { updateSectionSchema } from '@/validations/schemas/sections';
 
 export async function PATCH(
   request: NextRequest,
@@ -14,14 +14,14 @@ export async function PATCH(
     return NextResponse.json(
       {
         success: false,
-        message: 'Invalid project id',
+        message: 'Invalid section id',
       },
       { status: 400 },
     );
   }
 
   const body = await request.json();
-  const validatedData = updateProjectSchema.safeParse(body);
+  const validatedData = updateSectionSchema.safeParse(body);
 
   if (!validatedData.success) {
     const errors = flattenError(validatedData.error);
