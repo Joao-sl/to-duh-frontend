@@ -152,6 +152,7 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
               </FieldLabel>
 
               <Select
+                name='priority'
                 defaultValue={field.value}
                 value={field.value ?? ''}
                 onValueChange={val => {
