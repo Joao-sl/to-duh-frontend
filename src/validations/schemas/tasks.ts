@@ -22,7 +22,11 @@ const taskFields = {
     error: 'Priority accepts only: low, medium or high',
   }),
 
-  due_at: z.iso.datetime(),
+  due_at: z.iso.datetime({
+    error: 'Date must be in format YYYY-MM-DDTHH:mm:ss.SSSZ',
+  }),
+
+  is_completed: z.boolean({ error: 'Is completed must be a boolean' }),
 };
 
 export const createTaskSchema = z.object({
@@ -39,6 +43,7 @@ export const updateTaskSchema = z.object({
   description: taskFields.description.optional(),
   priority: taskFields.priority.nullish(),
   due_at: taskFields.due_at.nullish(),
+  is_completed: taskFields.is_completed.optional(),
 });
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
