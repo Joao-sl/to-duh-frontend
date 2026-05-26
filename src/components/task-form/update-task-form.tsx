@@ -18,6 +18,7 @@ type UpdateTaskFormProps = {
   initialValues: TaskData;
   onSuccess?: (data: TaskData) => void;
   onCancel?: () => void;
+  submissionMode?: 'server-action' | 'route-handler';
 };
 
 function UpdateTaskForm({
@@ -25,6 +26,7 @@ function UpdateTaskForm({
   initialValues,
   onSuccess,
   onCancel,
+  submissionMode = 'server-action',
 }: UpdateTaskFormProps) {
   const form = useForm<UpdateTaskSchema>({
     resolver: zodResolver(updateTaskSchema),
@@ -39,13 +41,24 @@ function UpdateTaskForm({
   const { formState, reset, setError, getValues, handleSubmit } = form;
 
   async function onSubmit() {
+    let response;
     const data = getValues(undefined, { dirtyFields: true });
 
     if (Object.keys(data).length === 0) {
       return;
     }
 
-    const response = await updateTaskAction(taskId, data);
+    if (submissionMode === 'server-action') {
+      response = await updateTaskAction(taskId, data);
+    } else {
+      const res = await fetch(`/api/tasks/${taskId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      response = await res.json();
+    }
 
     if (!response.success) {
       handleApiErrors(response, setError, updateTaskSchema);
