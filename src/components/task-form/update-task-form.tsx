@@ -12,6 +12,7 @@ import {
   updateTaskSchema,
   UpdateTaskSchema,
 } from '@/validations/schemas/tasks';
+import { useEffect } from 'react';
 
 type UpdateTaskFormProps = {
   taskId: number;
@@ -38,7 +39,13 @@ function UpdateTaskForm({
     },
     mode: 'onSubmit',
   });
-  const { formState, reset, setError, getValues, handleSubmit } = form;
+
+  const { formState, reset, setError, getValues, handleSubmit, setFocus } =
+    form;
+
+  useEffect(() => {
+    setFocus('title');
+  }, [setFocus]);
 
   async function onSubmit() {
     let response;

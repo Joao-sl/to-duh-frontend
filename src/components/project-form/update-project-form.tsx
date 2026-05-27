@@ -12,6 +12,7 @@ import {
   UpdateProjectSchema,
   updateProjectSchema,
 } from '@/validations/schemas/projects';
+import { useEffect } from 'react';
 
 type UpdateProjectFormProps = {
   projectId: number;
@@ -38,7 +39,12 @@ function UpdateProjectForm({
     mode: 'onSubmit',
   });
 
-  const { formState, reset, setError, getValues, handleSubmit } = form;
+  const { formState, reset, setError, getValues, handleSubmit, setFocus } =
+    form;
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   async function onSubmit() {
     let response;

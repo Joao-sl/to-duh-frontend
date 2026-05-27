@@ -15,6 +15,7 @@ import {
   createTaskSchema,
   type CreateTaskSchema,
 } from '@/validations/schemas/tasks';
+import { useEffect } from 'react';
 
 type CreateTaskFormProps = {
   projectId: number;
@@ -43,7 +44,12 @@ function CreateTaskForm({
     },
     mode: 'onSubmit',
   });
-  const { formState, reset, setError, handleSubmit } = form;
+
+  const { formState, reset, setError, handleSubmit, setFocus } = form;
+
+  useEffect(() => {
+    setFocus('title');
+  }, [setFocus]);
 
   async function onSubmit(data: CreateTaskSchema) {
     let response;

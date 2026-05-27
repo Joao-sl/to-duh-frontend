@@ -10,6 +10,7 @@ import {
   type CreateSectionSchema,
   createSectionSchema,
 } from '@/validations/schemas/sections';
+import { useEffect } from 'react';
 
 type CreateProjectFormProps = {
   projectId: number;
@@ -34,7 +35,11 @@ function CreateSectionForm({
     reValidateMode: 'onChange',
   });
 
-  const { formState, reset, setError, handleSubmit } = form;
+  const { formState, reset, setError, handleSubmit, setFocus } = form;
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   async function onSubmit(data: CreateSectionSchema) {
     let response;

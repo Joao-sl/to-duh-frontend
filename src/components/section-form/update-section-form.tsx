@@ -12,6 +12,7 @@ import {
   type UpdateSectionSchema,
   updateSectionSchema,
 } from '@/validations/schemas/sections';
+import { useEffect } from 'react';
 
 type UpdateProjectFormProps = {
   initialValues: Pick<SectionData, 'id' | 'name'>;
@@ -34,7 +35,12 @@ function UpdateSectionForm({
     mode: 'onSubmit',
   });
 
-  const { formState, reset, setError, getValues, handleSubmit } = form;
+  const { formState, reset, setError, getValues, handleSubmit, setFocus } =
+    form;
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   async function onSubmit() {
     let response;

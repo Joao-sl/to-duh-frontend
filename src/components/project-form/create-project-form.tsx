@@ -10,6 +10,7 @@ import {
   createProjectSchema,
   CreateProjectSchema,
 } from '@/validations/schemas/projects';
+import { useEffect } from 'react';
 
 type CreateProjectFormProps = {
   onCancel?: () => void;
@@ -33,7 +34,11 @@ function CreateProjectForm({
     reValidateMode: 'onChange',
   });
 
-  const { formState, reset, setError, handleSubmit } = form;
+  const { formState, reset, setError, handleSubmit, setFocus } = form;
+
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
 
   async function onSubmit(data: CreateProjectSchema) {
     let response;
