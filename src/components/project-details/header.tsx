@@ -15,7 +15,7 @@ import {
 } from '../ui/dialog';
 
 function ProjectDetailsHeader() {
-  const { board, setBoard } = useBoardContext();
+  const { board, dispatch } = useBoardContext();
   const [showDialog, setShowDialog] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -35,20 +35,14 @@ function ProjectDetailsHeader() {
   };
 
   function handleOnSuccess(data: ProjectData) {
-    setBoard(prev => ({
-      ...prev,
-      ...data,
-    }));
-
+    dispatch({ type: 'PROJECT_UPDATED', payload: data });
     setShowEditForm(false);
   }
 
   function handleOnCancel(formIsDirty: boolean) {
     if (formIsDirty) {
-      setShowDialog(true);
-      return;
+      return setShowDialog(true);
     }
-
     setShowEditForm(false);
   }
 
