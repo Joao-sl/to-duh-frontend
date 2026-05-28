@@ -1,19 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { BoardContext } from '@/contexts/board-context';
 import { type ProjectBoardData } from '@/lib/http/types/project';
+import { boardReducer } from '@/reducers/board-reducer';
 
 type BoardProviderProps = {
   children: React.ReactNode;
-  boardData: ProjectBoardData;
+  initialData: ProjectBoardData;
 };
 
-export function BoardProvider({ children, boardData }: BoardProviderProps) {
-  const [board, setBoard] = useState<ProjectBoardData>(boardData);
+export function BoardProvider({ children, initialData }: BoardProviderProps) {
+  const [board, dispatch] = useReducer(boardReducer, initialData);
 
   return (
-    <BoardContext.Provider value={{ board, setBoard }}>
+    <BoardContext.Provider value={{ board, dispatch }}>
       {children}
     </BoardContext.Provider>
   );
