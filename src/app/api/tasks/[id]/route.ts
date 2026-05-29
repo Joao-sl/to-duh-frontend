@@ -62,3 +62,38 @@ export async function PATCH(
     });
   }
 }
+
+export async function DELETE(context: RouteContext<'/api/tasks/[id]'>) {
+  const { id } = await context.params;
+  const taskId = Number(id);
+
+  if (!Number.isInteger(taskId) || taskId < 0) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: 'Invalid task id',
+      },
+      { status: 400 },
+    );
+  }
+
+  try {
+    const response = await fetchWithAuth(
+      `${process.env.API_DOMAIN}/tasks/${taskId}`,
+      { method: 'DELETE' },
+    );
+
+    if (!response.ok) {
+      const apiData = await response.json();
+      return { success: false, ...apiData };
+    }
+
+    return { success: true };
+  } catch {
+    return {
+      success: false,
+      message: 'Internal Server Error, please try again latter',
+      statusCode: 500,
+    };
+  }
+}
