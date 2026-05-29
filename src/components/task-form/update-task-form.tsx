@@ -2,7 +2,7 @@
 
 import { Button } from '../ui/button';
 import { Spinner } from '../ui/spinner';
-import { TaskData } from '@/lib/http/types/task';
+import { type TaskData } from '@/lib/http/types/task';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { handleApiErrors } from '@/helpers/handle-api-errors';
@@ -10,7 +10,7 @@ import { updateTaskAction } from '@/app/actions/task/update-task';
 import { TaskFormFields } from './task-form-fields';
 import {
   updateTaskSchema,
-  UpdateTaskSchema,
+  type UpdateTaskSchema,
 } from '@/validations/schemas/tasks';
 import { useEffect } from 'react';
 
@@ -18,7 +18,7 @@ type UpdateTaskFormProps = {
   taskId: number;
   initialValues: TaskData;
   onSuccess?: (data: TaskData) => void;
-  onCancel?: () => void;
+  onCancel?: (formIsDirty: boolean) => void;
   submissionMode?: 'server-action' | 'route-handler';
 };
 
@@ -77,6 +77,14 @@ function UpdateTaskForm({
     }
   }
 
+  function handleOnCancel() {
+    if (onCancel) {
+      return onCancel(formState.isDirty);
+    }
+
+    return reset();
+  }
+
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +97,7 @@ function UpdateTaskForm({
             variant='secondary'
             disabled={formState.isSubmitting}
             aria-disabled={formState.isSubmitting}
-            onClick={onCancel ?? (() => reset())}
+            onClick={handleOnCancel}
           >
             Cancel
           </Button>
