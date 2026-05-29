@@ -1,18 +1,10 @@
 'use client';
 
-import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import { ProjectData } from '@/lib/http/get-projects';
 import { useBoardContext } from '@/contexts/board-context';
+import { UnsavedChangesDialog } from '../unsaved-changes-dialog';
 import { UpdateProjectForm } from '../project-form/update-project-form';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-} from '../ui/dialog';
 
 function ProjectDetailsHeader() {
   const { board, dispatch } = useBoardContext();
@@ -48,33 +40,14 @@ function ProjectDetailsHeader() {
 
   return (
     <header>
-      <Dialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogContent size='sm'>
-          <DialogTitle>Discard changes?</DialogTitle>
-          <DialogDescription>
-            This can&apos;t be undone and you&apos;ll lose your draft.
-          </DialogDescription>
-
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant='secondary' size='sm'>
-                Cancel
-              </Button>
-            </DialogClose>
-
-            <Button
-              variant='destructive'
-              size='sm'
-              onClick={() => {
-                setShowEditForm(false);
-                setShowDialog(false);
-              }}
-            >
-              Discard
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <UnsavedChangesDialog
+        open={showDialog}
+        onOpenChange={setShowDialog}
+        onConfirm={() => {
+          setShowEditForm(false);
+          setShowDialog(false);
+        }}
+      />
 
       {showEditForm ? (
         <UpdateProjectForm
