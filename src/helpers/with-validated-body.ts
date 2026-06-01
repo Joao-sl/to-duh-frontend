@@ -1,11 +1,16 @@
-import z, { type ZodType } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
+import { type ZodType, flattenError } from 'zod';
 
-export function withValidatedBody<T>(
+export function withValidatedBody<T, P extends Record<string, string>>(
   schema: ZodType<T> | null,
-  handler: (data: T | null, req: NextRequest) => Promise<NextResponse>,
+  handler: (
+    data: T | null,
+    req: NextRequest,
+    params: P,
+  ) => Promise<NextResponse>,
 ) {
-  return async (request: NextRequest) => {
+  return async (request: NextRequest, context: { params: Promise<P> }) => {
+    const params = await context.params;
     let data: T | null = null;
 
     if (schema) {
@@ -14,7 +19,7 @@ export function withValidatedBody<T>(
 
       if (!parsed.success) {
         return NextResponse.json(
-          { success: false, errors: z.flattenError(parsed.error).fieldErrors },
+          { success: false, errors: flattenError(parsed.error).fieldErrors },
           { status: 400 },
         );
       }
@@ -23,7 +28,7 @@ export function withValidatedBody<T>(
     }
 
     try {
-      return await handler(data, request);
+      return await handler(data, request, params);
     } catch {
       return NextResponse.json(
         { success: false, message: 'Internal Server Error' },
