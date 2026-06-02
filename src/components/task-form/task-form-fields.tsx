@@ -214,6 +214,7 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                 </FieldLabel>
 
                 <Select
+                  name='section'
                   onValueChange={val => {
                     if (val === 'none') {
                       field.onChange(null);
