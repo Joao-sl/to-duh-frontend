@@ -1,5 +1,5 @@
-import { Button } from '../ui/button';
-import { Spinner } from '../ui/spinner';
+'use client';
+
 import { ProjectData } from '@/lib/http/get-projects';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -8,9 +8,10 @@ import { handleApiErrors } from '@/helpers/handle-api-errors';
 import { createProjectAction } from '@/app/actions/project/create-project';
 import {
   createProjectSchema,
-  CreateProjectSchema,
+  type CreateProjectSchema,
 } from '@/validations/schemas/projects';
 import { useEffect } from 'react';
+import { FormActions } from '../form-actions';
 
 type CreateProjectFormProps = {
   onCancel?: () => void;
@@ -74,28 +75,11 @@ function CreateProjectForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <ProjectFormFields />
 
-        <div className='flex justify-end gap-2'>
-          <Button
-            type='button'
-            size='sm'
-            variant='secondary'
-            disabled={formState.isSubmitting}
-            aria-disabled={formState.isSubmitting}
-            onClick={onCancel ?? (() => reset())}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            size='sm'
-            type='submit'
-            disabled={formState.isSubmitting || !formState.isDirty}
-            aria-disabled={formState.isSubmitting}
-            className='w-17.25'
-          >
-            {formState.isSubmitting ? <Spinner /> : 'Create'}
-          </Button>
-        </div>
+        <FormActions
+          isSubmitting={formState.isSubmitting}
+          isDirty={formState.isDirty}
+          onCancel={onCancel ?? (() => reset())}
+        />
       </form>
     </FormProvider>
   );

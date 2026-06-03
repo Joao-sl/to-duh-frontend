@@ -1,5 +1,5 @@
-import { Button } from '../ui/button';
-import { Spinner } from '../ui/spinner';
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SectionData } from '@/lib/http/types/section';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import {
   createSectionSchema,
 } from '@/validations/schemas/sections';
 import { useEffect } from 'react';
+import { FormActions } from '../form-actions';
 
 type CreateProjectFormProps = {
   projectId: number;
@@ -75,28 +76,11 @@ function CreateSectionForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <SectionFormFields hideLabels />
 
-        <div className='flex justify-end gap-2 mt-2'>
-          <Button
-            type='button'
-            size='sm'
-            variant='secondary'
-            disabled={formState.isSubmitting}
-            aria-disabled={formState.isSubmitting}
-            onClick={onCancel ?? (() => reset())}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            size='sm'
-            type='submit'
-            disabled={formState.isSubmitting || !formState.isDirty}
-            aria-disabled={formState.isSubmitting}
-            className='w-17.25'
-          >
-            {formState.isSubmitting ? <Spinner /> : 'Create'}
-          </Button>
-        </div>
+        <FormActions
+          isSubmitting={formState.isSubmitting}
+          isDirty={formState.isDirty}
+          onCancel={onCancel ?? (() => reset())}
+        />
       </form>
     </FormProvider>
   );

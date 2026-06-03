@@ -4,15 +4,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProjectFormFields } from './project-form-fields';
 import { ProjectData } from '@/lib/http/get-projects';
-import { Button } from '../ui/button';
-import { Spinner } from '../ui/spinner';
 import { updateProjectAction } from '@/app/actions/project/update-project';
 import { handleApiErrors } from '@/helpers/handle-api-errors';
 import {
-  UpdateProjectSchema,
+  type UpdateProjectSchema,
   updateProjectSchema,
 } from '@/validations/schemas/projects';
 import { useEffect } from 'react';
+import { FormActions } from '../form-actions';
 
 type UpdateProjectFormProps = {
   projectId: number;
@@ -91,28 +90,12 @@ function UpdateProjectForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <ProjectFormFields hideLabels />
 
-        <div className='flex justify-end gap-2'>
-          <Button
-            type='button'
-            size='sm'
-            variant='secondary'
-            disabled={formState.isSubmitting}
-            aria-disabled={formState.isSubmitting}
-            onClick={handleOnCancel}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            size='sm'
-            type='submit'
-            disabled={formState.isSubmitting || !formState.isDirty}
-            aria-disabled={formState.isSubmitting}
-            className='w-17.25'
-          >
-            {formState.isSubmitting ? <Spinner /> : 'Update'}
-          </Button>
-        </div>
+        <FormActions
+          isSubmitting={formState.isSubmitting}
+          isDirty={formState.isDirty}
+          onCancel={handleOnCancel}
+          submitButtonText='Update'
+        />
       </form>
     </FormProvider>
   );

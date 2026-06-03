@@ -1,7 +1,5 @@
 'use client';
 
-import { Button } from '../ui/button';
-import { Spinner } from '../ui/spinner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SectionData } from '@/lib/http/types/section';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -13,6 +11,7 @@ import {
   updateSectionSchema,
 } from '@/validations/schemas/sections';
 import { useEffect } from 'react';
+import { FormActions } from '../form-actions';
 
 type UpdateProjectFormProps = {
   initialValues: Pick<SectionData, 'id' | 'name'>;
@@ -87,28 +86,12 @@ function UpdateSectionForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <SectionFormFields hideLabels />
 
-        <div className='flex justify-end gap-2 mt-2'>
-          <Button
-            type='button'
-            size='sm'
-            variant='secondary'
-            disabled={formState.isSubmitting}
-            aria-disabled={formState.isSubmitting}
-            onClick={handleOnCancel}
-          >
-            Cancel
-          </Button>
-
-          <Button
-            size='sm'
-            type='submit'
-            disabled={formState.isSubmitting || !formState.isDirty}
-            aria-disabled={formState.isSubmitting}
-            className='w-17.25'
-          >
-            {formState.isSubmitting ? <Spinner /> : 'Update'}
-          </Button>
-        </div>
+        <FormActions
+          isSubmitting={formState.isSubmitting}
+          isDirty={formState.isDirty}
+          onCancel={handleOnCancel}
+          submitButtonText='Update'
+        />
       </form>
     </FormProvider>
   );
