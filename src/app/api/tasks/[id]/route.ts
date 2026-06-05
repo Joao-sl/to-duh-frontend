@@ -1,99 +1,59 @@
-import { flattenError } from 'zod';
-import { NextRequest, NextResponse } from 'next/server';
-import { fetchWithAuth } from '@/helpers/fetch-with-auth';
+import { NextResponse } from 'next/server';
 import { updateTaskSchema } from '@/validations/schemas/tasks';
+import { apiClient } from '@/helpers/api-client';
+import { withValidatedBody } from '@/helpers/with-validated-body';
 
-export async function PATCH(
-  request: NextRequest,
-  context: RouteContext<'/api/tasks/[id]'>,
-) {
-  const { id } = await context.params;
-  const taskId = Number(id);
+export const PATCH = withValidatedBody(
+  updateTaskSchema,
+  async (data, _request, params) => {
+    const taskId = Number(params.id);
 
-  if (!Number.isInteger(taskId) || taskId < 0) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: 'Invalid task id',
-      },
-      { status: 400 },
-    );
-  }
+    if (!Number.isInteger(taskId) || taskId < 0) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid task id' },
+        { status: 400 },
+      );
+    }
 
-  const body = await request.json();
-  const validatedData = updateTaskSchema.safeParse(body);
-
-  if (!validatedData.success) {
-    const errors = flattenError(validatedData.error);
-    return NextResponse.json(
-      { success: false, errors: errors.fieldErrors },
-      { status: 400 },
-    );
-  }
-
-  try {
-    const response = await fetchWithAuth(
-      `${process.env.API_DOMAIN}/tasks/${taskId}`,
-      {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(validatedData.data),
-      },
-    );
-
-    const apiData = await response.json();
+    const response = await apiClient.patch(`/tasks/${taskId}`, data);
+    const json = await response.json();
 
     if (!response.ok) {
       return NextResponse.json(
-        { success: false, ...apiData },
-        { status: response.status ?? 400 },
+        { success: false, ...json },
+        { status: response.status },
       );
     }
 
     return NextResponse.json(
-      { success: true, ...apiData },
-      { status: response.status ?? 200 },
+      { success: true, ...json },
+      { status: response.status },
     );
-  } catch {
-    return NextResponse.json({
-      success: false,
-      message: 'Internal Server Error, please try again latter',
-      statusCode: 500,
-    });
-  }
-}
+  },
+);
 
-export async function DELETE(context: RouteContext<'/api/tasks/[id]'>) {
-  const { id } = await context.params;
-  const taskId = Number(id);
+export const DELETE = withValidatedBody(
+  null,
+  async (_data, _request, params) => {
+    const taskId = Number(params.id);
 
-  if (!Number.isInteger(taskId) || taskId < 0) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: 'Invalid task id',
-      },
-      { status: 400 },
-    );
-  }
-
-  try {
-    const response = await fetchWithAuth(
-      `${process.env.API_DOMAIN}/tasks/${taskId}`,
-      { method: 'DELETE' },
-    );
-
-    if (!response.ok) {
-      const apiData = await response.json();
-      return { success: false, ...apiData };
+    if (!Number.isInteger(taskId) || taskId < 0) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid task id' },
+        { status: 400 },
+      );
     }
 
-    return { success: true };
-  } catch {
-    return {
-      success: false,
-      message: 'Internal Server Error, please try again latter',
-      statusCode: 500,
-    };
-  }
-}
+    const response = await apiClient.delete(`/tasks/${taskId}`);
+
+    if (!response.ok) {
+      const json = await response.json();
+      return NextResponse.json(
+        { success: false, ...json },
+        { status: response.status },
+      );
+    }
+
+    return new NextResponse(null, { status: response.status });
+  },
+);
