@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ProjectData } from '@/lib/http/get-projects';
 import { useBoardContext } from '@/contexts/board-context';
-import { UnsavedChangesDialog } from '../unsaved-changes-dialog';
+import { ConfirmDialog } from '../confirm-dialog';
 import { UpdateProjectForm } from '../project-form/update-project-form';
 
 function ProjectDetailsHeader() {
@@ -40,7 +40,10 @@ function ProjectDetailsHeader() {
 
   return (
     <header>
-      <UnsavedChangesDialog
+      <ConfirmDialog
+        title='Discard changes?'
+        description="This can't be undone and you'll lose your draft."
+        confirmLabel='Discard'
         open={showDialog}
         onOpenChange={setShowDialog}
         onConfirm={() => {
