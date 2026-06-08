@@ -10,34 +10,40 @@ import {
   DialogTitle,
 } from '../ui/dialog';
 
-type UnsavedChangesDialogProps = {
+type ConfirmDialogProps = {
+  title?: string;
+  description?: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
 
-function UnsavedChangesDialog({
+function ConfirmDialog({
   open,
   onOpenChange,
   onConfirm,
-}: UnsavedChangesDialogProps) {
+  title = 'Are you sure?',
+  description = "This can't be undone.",
+  confirmLabel = 'Confirm',
+  cancelLabel = 'Cancel',
+}: ConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent size='sm'>
-        <DialogTitle>Discard changes?</DialogTitle>
-        <DialogDescription>
-          This can&apos;t be undone and you&apos;ll lose your draft.
-        </DialogDescription>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription>{description}</DialogDescription>
 
         <DialogFooter>
           <DialogClose asChild>
             <Button variant='secondary' size='sm'>
-              Cancel
+              {cancelLabel}
             </Button>
           </DialogClose>
 
           <Button variant='destructive' size='sm' onClick={onConfirm}>
-            Discard
+            {confirmLabel}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -45,4 +51,4 @@ function UnsavedChangesDialog({
   );
 }
 
-export { UnsavedChangesDialog };
+export { ConfirmDialog };
