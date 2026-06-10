@@ -12,3 +12,13 @@ export function updateSectionInBoard(
     ),
   };
 }
+
+export function removeSectionFormBoard(
+  state: ProjectBoardData,
+  data: Pick<SectionData, 'id'>,
+) {
+  return {
+    ...state,
+    sections: state.sections.filter(section => section.id !== data.id),
+  };
+}
