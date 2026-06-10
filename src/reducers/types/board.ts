@@ -12,6 +12,10 @@ export type BoardAction =
       payload: SectionData;
     }
   | {
+      type: 'SECTION_ARCHIVED';
+      payload: Pick<SectionData, 'id'>;
+    }
+  | {
       type: 'TASK_UPDATED' | 'TASK_ARCHIVED';
       payload: TaskData;
     }
