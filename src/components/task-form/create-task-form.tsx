@@ -78,7 +78,7 @@ function CreateTaskForm({
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
         <TaskFormFields sections={sections} />
 
         <FormActions
