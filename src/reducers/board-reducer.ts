@@ -1,7 +1,10 @@
 import { type BoardAction } from './types/board';
 import { type ProjectBoardData } from '@/lib/http/types/project';
 import { updateProjectInBoard } from '@/helpers/handle-project-changes';
-import { updateSectionInBoard } from '@/helpers/handle-section-changes';
+import {
+  removeSectionFormBoard,
+  updateSectionInBoard,
+} from '@/helpers/handle-section-changes';
 import {
   removeTaskFromBoard,
   updateTaskInBoard,
@@ -17,6 +20,9 @@ export function boardReducer(
 
     case 'SECTION_UPDATED':
       return updateSectionInBoard(state, action.payload);
+
+    case 'SECTION_ARCHIVED':
+      return removeSectionFormBoard(state, action.payload);
 
     case 'TASK_UPDATED':
       return updateTaskInBoard(state, action.payload);
