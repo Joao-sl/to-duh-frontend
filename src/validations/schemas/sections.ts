@@ -4,11 +4,14 @@ const sectionFields = {
   project_id: z
     .number({ error: 'Project id must be a number' })
     .positive({ error: 'Project id must be a positive number' }),
+
   name: z
     .string()
     .min(1, { error: 'Name must have at least 1 character' })
     .max(255, { error: 'Name must have at most 255 characters' })
     .trim(),
+
+  is_archived: z.boolean({ error: 'Is archived must be a boolean' }),
 };
 
 export const createSectionSchema = z.object({
@@ -18,6 +21,7 @@ export const createSectionSchema = z.object({
 
 export const updateSectionSchema = z.object({
   name: sectionFields.name,
+  is_archived: sectionFields.is_archived,
 });
 
 export type CreateSectionSchema = z.infer<typeof createSectionSchema>;
