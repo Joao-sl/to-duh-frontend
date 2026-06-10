@@ -14,7 +14,15 @@ export function withValidatedBody<T, P extends Record<string, string>>(
     let data: T | null = null;
 
     if (schema) {
-      const body = await request.json();
+      const body = await request.json().catch(() => null);
+
+      if (body === null) {
+        return NextResponse.json(
+          { success: false, errors: 'Invalid JSON body' },
+          { status: 400 },
+        );
+      }
+
       const parsed = schema.safeParse(body);
 
       if (!parsed.success) {
