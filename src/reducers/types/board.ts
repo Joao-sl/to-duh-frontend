@@ -12,7 +12,7 @@ export type BoardAction =
       payload: SectionData;
     }
   | {
-      type: 'SECTION_ARCHIVED';
+      type: 'SECTION_ARCHIVED' | 'SECTION_DELETED';
       payload: Pick<SectionData, 'id'>;
     }
   | {

@@ -24,6 +24,9 @@ export function boardReducer(
     case 'SECTION_ARCHIVED':
       return removeSectionFormBoard(state, action.payload);
 
+    case 'SECTION_DELETED':
+      return removeSectionFormBoard(state, action.payload);
+
     case 'TASK_UPDATED':
       return updateTaskInBoard(state, action.payload);
 
