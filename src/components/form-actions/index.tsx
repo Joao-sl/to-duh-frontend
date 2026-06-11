@@ -20,7 +20,7 @@ function FormActions({
   className,
 }: FormActionsProps) {
   return (
-    <div className={cn('flex justify-end gap-2', className)}>
+    <div className={cn('flex justify-end gap-2 mt-1.5', className)}>
       <Button
         type='button'
         size='sm'
