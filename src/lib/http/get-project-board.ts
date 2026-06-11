@@ -20,11 +20,12 @@ export async function getProjectBoard(
       return {
         success: false,
         error: errorMessage ?? `ERROR ${response.status}`,
+        status: response.status,
       };
     }
 
-    return { success: true, data: data };
+    return { success: true, data: data, status: response.status };
   } catch {
-    return { success: false, error: 'Internal server error' };
+    return { success: false, error: 'Internal server error', status: 500 };
   }
 }

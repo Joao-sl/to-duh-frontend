@@ -1,3 +1,4 @@
 export type ApiResponse<T, D> = Promise<
-  { success: true; data: T } | { success: false; error: D }
+  | { success: true; data: T; status: number }
+  | { success: false; error: D; status: number }
 >;
