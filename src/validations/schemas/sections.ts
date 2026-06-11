@@ -20,8 +20,8 @@ export const createSectionSchema = z.object({
 });
 
 export const updateSectionSchema = z.object({
-  name: sectionFields.name,
-  is_archived: sectionFields.is_archived,
+  name: sectionFields.name.optional(),
+  is_archived: sectionFields.is_archived.optional(),
 });
 
 export type CreateSectionSchema = z.infer<typeof createSectionSchema>;
