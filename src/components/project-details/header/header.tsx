@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { ProjectData } from '@/lib/http/get-projects';
 import { useBoardContext } from '@/contexts/board-context';
-import { ConfirmDialog } from '../confirm-dialog';
-import { UpdateProjectForm } from '../project-form/update-project-form';
+import { ConfirmDialog } from '@/components/confirm-dialog';
+import { UpdateProjectForm } from '@/components/project-form/update-project-form';
 
 function ProjectDetailsHeader() {
   const { board, dispatch } = useBoardContext();
