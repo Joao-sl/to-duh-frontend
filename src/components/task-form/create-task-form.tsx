@@ -19,6 +19,7 @@ import { FormActions } from '../form-actions';
 type CreateTaskFormProps = {
   projectId: number;
   sections: TaskFormFieldsSections[];
+  defaultSection?: number;
   onCancel?: () => void;
   onSuccess?: (data: TaskData) => void;
   submissionMode?: 'server-action' | 'route-handler';
@@ -30,12 +31,13 @@ function CreateTaskForm({
   onCancel,
   onSuccess,
   submissionMode = 'server-action',
+  defaultSection,
 }: CreateTaskFormProps) {
   const form = useForm<CreateTaskSchema>({
     resolver: zodResolver(createTaskSchema),
     defaultValues: {
       project_id: projectId,
-      section_id: undefined,
+      section_id: defaultSection,
       title: '',
       description: '',
       due_at: undefined,

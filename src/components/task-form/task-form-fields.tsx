@@ -214,13 +214,10 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                 </FieldLabel>
 
                 <Select
+                  value={field.value == null ? 'none' : field.value.toString()}
                   name='section'
                   onValueChange={val => {
-                    if (val === 'none') {
-                      field.onChange(null);
-                    } else {
-                      field.onChange(Number(val));
-                    }
+                    field.onChange(val === 'none' ? null : Number(val));
                   }}
                 >
                   <SelectTrigger
@@ -253,9 +250,9 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                           title={item.name}
                           key={idx}
                         >
-                          <span className='flex items-center gap-1 max-w-45 line-clamp-2'>
-                            <IconLayersSelectedBottom />
-                            {item.name}
+                          <span className='flex items-center gap-1 max-w-45'>
+                            <IconLayersSelectedBottom aria-hidden />
+                            <span className='line-clamp-1'>{item.name}</span>
                           </span>
                         </SelectItem>
                       ))}
