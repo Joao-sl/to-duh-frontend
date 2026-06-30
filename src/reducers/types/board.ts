@@ -8,7 +8,7 @@ export type BoardAction =
       payload: ProjectData;
     }
   | {
-      type: 'SECTION_UPDATED';
+      type: 'SECTION_CREATED' | 'SECTION_UPDATED';
       payload: SectionData;
     }
   | {
@@ -16,7 +16,7 @@ export type BoardAction =
       payload: Pick<SectionData, 'id'>;
     }
   | {
-      type: 'TASK_UPDATED' | 'TASK_ARCHIVED';
+      type: 'TASK_CREATED' | 'TASK_UPDATED' | 'TASK_ARCHIVED';
       payload: TaskData;
     }
   | {
