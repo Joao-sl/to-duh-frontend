@@ -1,5 +1,31 @@
-import { TaskData } from '@/lib/http/types/task';
-import { ProjectBoardData } from '@/lib/http/types/project';
+import { type TaskData } from '@/lib/http/types/task';
+import { type ProjectBoardData } from '@/lib/http/types/project';
+
+export function addTaskInBoard(
+  state: ProjectBoardData,
+  taskData: TaskData,
+): ProjectBoardData {
+  if (taskData.section_id == null) {
+    return {
+      ...state,
+      tasks_without_sections: [...state.tasks_without_sections, taskData],
+    };
+  }
+
+  return {
+    ...state,
+    sections: state.sections.map(section => {
+      if (section.id !== taskData.section_id) {
+        return section;
+      }
+
+      return {
+        ...section,
+        tasks: [...section.tasks, taskData],
+      };
+    }),
+  };
+}
 
 export function updateTaskInBoard(
   state: ProjectBoardData,
