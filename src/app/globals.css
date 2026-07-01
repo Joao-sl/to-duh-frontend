@@ -36,6 +36,9 @@
   --warning: oklch(74.863% 0.15544 76.725);
   --error: oklch(59.488% 0.24027 28.871);
   --sidebar: hsl(0 0% 98%);
+  --low-priority: oklch(0.74 0.21 143.6);
+  --medium-priority: oklch(0.95 0.19 79.4);
+  --high-priority: oklch(0.7 0.21 21.9);
 }
 
 .dark {
@@ -70,6 +73,9 @@
   --warning: oklch(84.173% 0.18115 108.704);
   --error: oklch(59.488% 0.24027 28.871);
   --sidebar: hsl(240 5.9% 10%);
+  --low-priority: oklch(0.74 0.21 143.6);
+  --medium-priority: oklch(0.95 0.19 79.4);
+  --high-priority: oklch(0.7 0.21 21.9);
 }
 
 @theme inline {
@@ -110,6 +116,9 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-low-priority: var(--low-priority);
+  --color-medium-priority: var(--medium-priority);
+  --color-high-priority: var(--high-priority);
 }
 
 @layer base {
