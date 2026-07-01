@@ -1,6 +1,5 @@
 'use client';
 
-import { cn } from '@/utils/cn';
 import { DatePicker } from '../ui/date-picker';
 import { Controller, useFormContext } from 'react-hook-form';
 import { Field, FieldError, FieldGroup, FieldLabel } from '../ui/field';
@@ -38,30 +37,11 @@ type TaskFormFieldsProps = {
 function TaskFormFields({ sections }: TaskFormFieldsProps) {
   const { control, formState } = useFormContext();
 
-  const selectClasses = cn(
-    'flex items-center gap-2 before:content-[""] before:size-4 before:rounded-sm',
-  );
-
-  const selectItemsMap = [
-    {
-      value: 'none',
-      label: 'None',
-    },
-    {
-      value: 'low',
-      label: 'Low',
-      classes: `${selectClasses} before:bg-green-700/50`,
-    },
-    {
-      value: 'medium',
-      label: 'Medium',
-      classes: `${selectClasses} before:bg-yellow-500/50`,
-    },
-    {
-      value: 'high',
-      label: 'High',
-      classes: `${selectClasses} before:bg-red-800/50`,
-    },
+  const priorityItemsMap = [
+    { value: 'none', label: 'None', svgColor: 'fill-muted-foreground' },
+    { value: 'low', label: 'Low', svgColor: 'fill-low-priority' },
+    { value: 'medium', label: 'Medium', svgColor: 'fill-medium-priority' },
+    { value: 'high', label: 'High', svgColor: 'fill-high-priority' },
   ];
 
   return (
@@ -183,9 +163,15 @@ function TaskFormFields({ sections }: TaskFormFieldsProps) {
                 <SelectContent position='popper'>
                   <SelectGroup>
                     <SelectLabel>Priorities</SelectLabel>
-                    {selectItemsMap.map((item, idx) => (
+                    {priorityItemsMap.map((item, idx) => (
                       <SelectItem value={item.value} key={idx}>
-                        <span className={item.classes}>{item.label}</span>
+                        <p className={'flex items-center gap-1'}>
+                          <IconSquareRoundedFilled
+                            aria-hidden
+                            className={item.svgColor}
+                          />
+                          {item.label}
+                        </p>
                       </SelectItem>
                     ))}
                   </SelectGroup>
