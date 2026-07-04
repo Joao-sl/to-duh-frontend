@@ -1,4 +1,3 @@
-import { cn } from '@/utils/cn';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/confirm-dialog';
@@ -35,7 +34,7 @@ function TaskActions({ onDelete, openEditForm, onCopy }: TaskActionsProps) {
   }, [copied]);
 
   return (
-    <div className={cn('flex text-foreground/75')}>
+    <div className='flex text-foreground/75 opacity-0 group-hover:opacity-100 focus-within:opacity-100 data-open:opacity-100 transition-all'>
       <ConfirmDialog
         title='Delete task?'
         description='The task will be permanently deleted.'
