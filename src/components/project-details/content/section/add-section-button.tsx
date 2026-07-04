@@ -21,25 +21,34 @@ function AddSectionButton({
 }: AddSectionProps) {
   const [open, setOpen] = useState(false);
 
+  function handleOnKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Escape') {
+      setOpen(false);
+      isOpened?.(false);
+    }
+  }
+
   return open ? (
-    <CreateSectionForm
-      projectId={projectId}
-      onCancel={() => {
-        setOpen(false);
-        isOpened?.(false);
-      }}
-      onSuccess={data => {
-        setOpen(false);
-        onSuccess(data);
-        isOpened?.(false);
-      }}
-      submissionMode='route-handler'
-    />
+    <div onKeyDown={handleOnKeyDown}>
+      <CreateSectionForm
+        projectId={projectId}
+        onCancel={() => {
+          setOpen(false);
+          isOpened?.(false);
+        }}
+        onSuccess={data => {
+          setOpen(false);
+          onSuccess(data);
+          isOpened?.(false);
+        }}
+        submissionMode='route-handler'
+      />
+    </div>
   ) : (
     <Button
       size='sm'
       variant='link'
-      className='text-xs'
+      className='text-xs has-[>svg]:px-0'
       onClick={() => {
         setOpen(true);
         isOpened?.(true);
