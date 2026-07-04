@@ -25,8 +25,15 @@ function AddTaskButton({
   const { board } = useBoardContext();
   const [open, setOpen] = useState(false);
 
+  function handleOnKeyDown(event: React.KeyboardEvent) {
+    if (event.key === 'Escape') {
+      setOpen(false);
+      isOpened?.(false);
+    }
+  }
+
   return open ? (
-    <div className='transition-all duration-400 starting:opacity-0 w-full'>
+    <div onKeyDown={handleOnKeyDown} className='w-full'>
       <CreateTaskForm
         projectId={projectId}
         sections={board.sections}
@@ -46,7 +53,7 @@ function AddTaskButton({
     <Button
       size='sm'
       variant='link'
-      className='text-xs'
+      className='text-xs has-[>svg]:px-0'
       onClick={() => {
         setOpen(true);
         isOpened?.(true);
