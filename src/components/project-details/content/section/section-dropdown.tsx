@@ -53,7 +53,11 @@ function SectionDropdown({
       />
 
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild aria-label='Open section actions'>
+        <DropdownMenuTrigger
+          asChild
+          aria-label='Open section actions'
+          className='opacity-0 group-hover:opacity-100 focus-within:opacity-100 data-open:opacity-100'
+        >
           <Button variant='ghost' size='icon-sm'>
             <IconDots />
           </Button>
