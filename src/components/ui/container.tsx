@@ -12,7 +12,7 @@ function Container({ children, asChild, className, ...props }: ContainerProps) {
 
   return (
     <Comp
-      className={cn('flex-1 max-w-2xl mx-auto px-4 py-10', className)}
+      className={cn('flex-1 max-w-2xl mx-auto px-8 py-10', className)}
       {...props}
     >
       {children}
