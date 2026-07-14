@@ -8,7 +8,7 @@ type ThemeProvider = {
 
 export function ThemeProvider({ children }: ThemeProvider) {
   return (
-    <NextThemeProvider defaultTheme='light' attribute='class'>
+    <NextThemeProvider defaultTheme='system' attribute='class'>
       {children}
     </NextThemeProvider>
   );
