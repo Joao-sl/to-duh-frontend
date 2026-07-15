@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { cn } from '@/utils/cn';
 import { useUserContext } from '@/contexts/user-context';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -9,52 +8,24 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
-import { Button } from '@/components/ui/button';
 
 function AppSidebarHeader() {
   const { user } = useUserContext();
-  const { open, isMobile } = useSidebar();
+  const { open } = useSidebar();
 
   return (
-    <SidebarHeader className='py-2'>
-      <div className='relative flex justify-between overflow-hidden'>
-        <h1
-          className={cn(
-            'absolute text-xs text-primary left-2 top-1/2 -translate-y-1/2 transition duration-300 ease-in-out whitespace-nowrap',
-            {
-              'opacity-0 -translate-y-4 pointer-events-none':
-                !open && !isMobile,
-              'opacity-100 translate-x-0': open && !isMobile,
-            },
-          )}
-        >
-          TO~DUH
-        </h1>
-
-        <Button
-          variant='ghost'
-          size='icon'
-          asChild
-          aria-label='Toggle theme'
-          className={cn('size-8 ml-auto text-muted-foreground', {
-            hidden: !open && !isMobile,
-          })}
-        >
-          <ThemeToggleButton />
-        </Button>
-
-        <SidebarTrigger
-          className={cn('text-muted-foreground', {
-            'ml-auto': !open && !isMobile,
-          })}
-        />
-      </div>
-
+    <SidebarHeader>
       <SidebarMenu>
+        <SidebarMenuItem className='pb-1'>
+          <SidebarMenuButton asChild className='hover:bg-transparent w-fit'>
+            <Link href='/desk' className='font-bold tracking-tight'>
+              {open ? 'TO~DUH' : 'TD'}
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+
         <SidebarMenuItem>
           <SidebarMenuButton
             className='group-data-[collapsible=icon]:p-0! py-6 rounded-xl'

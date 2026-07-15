@@ -1,13 +1,15 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { IconArrowBarRight } from '@tabler/icons-react';
+import { IconLogout } from '@tabler/icons-react';
 import { logOutAction } from '@/app/actions/auth/logout';
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import {
   Dialog,
@@ -19,18 +21,59 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { ThemeToggleButton } from '@/components/ui/theme-toggle-button';
+import { cn } from '@/utils/cn';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 function AppSidebarFooter() {
+  const { open } = useSidebar();
+
   return (
     <SidebarFooter>
-      <SidebarMenu>
+      <SidebarMenu className={cn('items-center', { 'flex-row': open })}>
+        <SidebarMenuItem>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <SidebarMenuButton className='[&_svg]:size-4' asChild>
+                <SidebarTrigger />
+              </SidebarMenuButton>
+            </TooltipTrigger>
+
+            <TooltipContent side={open ? 'top' : 'right'}>
+              {open ? 'Close sidebar' : 'Open sidebar'}
+            </TooltipContent>
+          </Tooltip>
+        </SidebarMenuItem>
+
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <ThemeToggleButton
+              className='[&_svg]:size-4'
+              tooltipDuration={0}
+              tooltipSide={open ? 'top' : 'right'}
+            />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+
         <SidebarMenuItem>
           <Dialog>
-            <DialogTrigger asChild>
-              <SidebarMenuButton>
-                <IconArrowBarRight /> Log out
-              </SidebarMenuButton>
-            </DialogTrigger>
+            <Tooltip delayDuration={0}>
+              <DialogTrigger asChild>
+                <TooltipTrigger asChild>
+                  <SidebarMenuButton aria-label='Log out'>
+                    <IconLogout aria-hidden />
+                  </SidebarMenuButton>
+                </TooltipTrigger>
+              </DialogTrigger>
+
+              <TooltipContent side={open ? 'top' : 'right'}>
+                <span>Log out</span>
+              </TooltipContent>
+            </Tooltip>
 
             <DialogContent size='sm' showCloseButton={false}>
               <DialogHeader>
