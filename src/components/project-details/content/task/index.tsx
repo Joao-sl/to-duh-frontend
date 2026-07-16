@@ -26,7 +26,11 @@ function TaskItem({ task }: TaskItemProps) {
   }
 
   const formattedDueAt = task.due_at
-    ? format(task.due_at, 'dd-MM-yy')
+    ? `Due at: ${format(task.due_at, 'dd-MM-yy')}`
+    : undefined;
+
+  const formattedCompletedAt = task.completed_at
+    ? `Completed at: ${format(task.completed_at, 'dd-MM-yy')}`
     : undefined;
 
   const textToCopy = [
@@ -34,6 +38,7 @@ function TaskItem({ task }: TaskItemProps) {
     task.description,
     formattedDueAt,
     task.priority,
+    formattedCompletedAt,
   ]
     .filter(Boolean)
     .join('\n');
