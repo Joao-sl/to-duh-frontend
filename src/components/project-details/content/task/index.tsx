@@ -7,6 +7,7 @@ import { TaskData } from '@/lib/http/types/task';
 import { useTaskActions } from './use-task-actions';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { UpdateTaskForm } from '@/components/task-form/update-task-form';
+import { format } from 'date-fns';
 
 type TaskItemProps = {
   task: TaskData;
@@ -24,7 +25,16 @@ function TaskItem({ task }: TaskItemProps) {
     return null;
   }
 
-  const textToCopy = [task.title, task.description, task.due_at, task.priority]
+  const formattedDueAt = task.due_at
+    ? format(task.due_at, 'dd-MM-yy')
+    : undefined;
+
+  const textToCopy = [
+    task.title,
+    task.description,
+    formattedDueAt,
+    task.priority,
+  ]
     .filter(Boolean)
     .join('\n');
 
