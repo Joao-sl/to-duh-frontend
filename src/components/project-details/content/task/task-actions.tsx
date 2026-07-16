@@ -1,9 +1,10 @@
+import { cn } from '@/utils/cn';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import {
+  IconCheck,
   IconCopy,
-  IconCopyCheck,
   IconPencil,
   IconTrash,
 } from '@tabler/icons-react';
@@ -34,7 +35,7 @@ function TaskActions({ onDelete, openEditForm, onCopy }: TaskActionsProps) {
   }, [copied]);
 
   return (
-    <div className='flex text-foreground/75 opacity-0 group-hover:opacity-100 focus-within:opacity-100 data-open:opacity-100 transition-all'>
+    <div className='flex text-foreground/75 opacity-0 group-hover:opacity-100 focus:opacity-100 data-open:opacity-100 transition-all'>
       <ConfirmDialog
         title='Delete task?'
         description='The task will be permanently deleted.'
@@ -53,8 +54,19 @@ function TaskActions({ onDelete, openEditForm, onCopy }: TaskActionsProps) {
               onCopy();
               setCopied(true);
             }}
+            className='relative *:absolute *:transition-all *:duration-300'
           >
-            {copied ? <IconCopyCheck /> : <IconCopy />}
+            <IconCopy
+              aria-hidden
+              className={cn({ 'opacity-0 scale-0 blur-sm': copied })}
+            />
+
+            <IconCheck
+              aria-hidden
+              className={cn('opacity-0 scale-0 blur-sm', {
+                'opacity-100 scale-100 blur-none': copied,
+              })}
+            />
           </Button>
         </TooltipTrigger>
 
