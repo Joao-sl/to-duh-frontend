@@ -48,7 +48,7 @@ function TaskActions({ onDelete, openEditForm, onCopy }: TaskActionsProps) {
           <Button
             size='icon-sm'
             variant='ghost'
-            aria-label='Edit task'
+            aria-label='Copy task'
             onClick={() => {
               onCopy();
               setCopied(true);
