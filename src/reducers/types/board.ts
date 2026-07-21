@@ -1,6 +1,6 @@
-import { ProjectData } from '@/lib/http/get-projects';
-import { SectionData } from '@/lib/http/types/section';
-import { TaskData } from '@/lib/http/types/task';
+import type { ProjectData } from '@/lib/http/types/project';
+import type { SectionData } from '@/lib/http/types/section';
+import type { TaskData } from '@/lib/http/types/task';
 
 export type BoardAction =
   | {

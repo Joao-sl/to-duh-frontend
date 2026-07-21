@@ -1,5 +1,5 @@
 import { isValidElement, useState } from 'react';
-import { ProjectData } from '@/lib/http/get-projects';
+import type { ProjectData } from '@/lib/http/types/project';
 import { useProjectsContext } from '@/contexts/projects-context';
 import { CreateProjectForm } from '../project-form/create-project-form';
 import {

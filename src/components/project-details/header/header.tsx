@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ProjectData } from '@/lib/http/get-projects';
+import type { ProjectData } from '@/lib/http/types/project';
 import { useBoardContext } from '@/contexts/board-context';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { UpdateProjectForm } from '@/components/project-form/update-project-form';

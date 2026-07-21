@@ -3,7 +3,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProjectFormFields } from './project-form-fields';
-import { ProjectData } from '@/lib/http/get-projects';
+import type { ProjectData } from '@/lib/http/types/project';
 import { updateProjectAction } from '@/app/actions/project/update-project';
 import { handleApiErrors } from '@/helpers/handle-api-errors';
 import {

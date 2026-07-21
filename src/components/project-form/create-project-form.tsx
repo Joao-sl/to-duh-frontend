@@ -1,6 +1,6 @@
 'use client';
 
-import { ProjectData } from '@/lib/http/get-projects';
+import type { ProjectData } from '@/lib/http/types/project';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ProjectFormFields } from './project-form-fields';
