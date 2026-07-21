@@ -1,15 +1,5 @@
 import { fetchWithAuth } from '@/helpers/fetch-with-auth';
-
-export type ProjectData = {
-  id: number;
-  user_id: number;
-  name: string;
-  description: string;
-  is_favorite: boolean;
-  is_archived: boolean;
-  created_at: string;
-  updated_at: string;
-};
+import { ProjectData } from './types/project';
 
 export type GetProjectsResponse =
   | { success: true; data: ProjectData[] }
