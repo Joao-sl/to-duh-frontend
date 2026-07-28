@@ -1,6 +1,8 @@
 import { type ApiResponse } from '../types/api';
 
-export async function deleteTask(id: number): ApiResponse<null, unknown> {
+export async function deleteTask(
+  id: number,
+): Promise<ApiResponse<null, unknown>> {
   try {
     const response = await fetch(`/api/tasks/${id}`, {
       method: 'DELETE',

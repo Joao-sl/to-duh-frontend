@@ -1,6 +1,8 @@
 import { type ApiResponse } from '../types/api';
 
-export async function deleteSection(id: number): ApiResponse<null, unknown> {
+export async function deleteSection(
+  id: number,
+): Promise<ApiResponse<null, unknown>> {
   try {
     const response = await fetch(`/api/sections/${id}`, { method: 'DELETE' });
 

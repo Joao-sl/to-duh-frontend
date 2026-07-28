@@ -4,7 +4,7 @@ import { fetchWithAuth } from '@/helpers/fetch-with-auth';
 
 export async function getProjectBoard(
   projectId: number,
-): ApiResponse<ProjectBoardData, string> {
+): Promise<ApiResponse<ProjectBoardData, string>> {
   try {
     const response = await fetchWithAuth(
       `${process.env.API_DOMAIN}/project/${projectId}/board`,

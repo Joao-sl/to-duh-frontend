@@ -5,7 +5,7 @@ import { type UpdateSectionSchema } from '@/validations/schemas/sections';
 export async function patchSection(
   id: number,
   data: UpdateSectionSchema,
-): ApiResponse<SectionData, unknown> {
+): Promise<ApiResponse<SectionData, unknown>> {
   try {
     const response = await fetch(`/api/sections/${id}`, {
       method: 'PATCH',

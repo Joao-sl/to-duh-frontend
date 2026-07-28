@@ -1,4 +1,3 @@
-export type ApiResponse<T, D> = Promise<
+export type ApiResponse<T, D> =
   | { success: true; data: T; status: number }
-  | { success: false; error: D; status: number }
->;
+  | { success: false; error: D; status: number };

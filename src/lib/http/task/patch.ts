@@ -5,7 +5,7 @@ import { type TaskData } from '../types/task';
 export async function patchTask(
   id: number,
   data: UpdateTaskSchema,
-): ApiResponse<TaskData, unknown> {
+): Promise<ApiResponse<TaskData, unknown>> {
   try {
     const response = await fetch(`/api/tasks/${id}`, {
       method: 'PATCH',
