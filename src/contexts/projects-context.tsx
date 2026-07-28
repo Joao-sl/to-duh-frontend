@@ -7,7 +7,7 @@ type ProjectContextValue = {
 };
 
 export const ProjectsContext = createContext<ProjectContextValue>({
-  projects: { success: false, error: 'Provider is required' },
+  projects: { success: false, error: 'Provider is required', status: 500 },
   setProjects: () => {},
 });
 

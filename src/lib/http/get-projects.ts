@@ -1,9 +1,8 @@
 import { fetchWithAuth } from '@/helpers/fetch-with-auth';
-import { ProjectData } from './types/project';
+import type { ProjectData } from './types/project';
+import type { ApiResponse } from './types/api';
 
-export type GetProjectsResponse =
-  | { success: true; data: ProjectData[] }
-  | { success: false; error: string };
+export type GetProjectsResponse = ApiResponse<ProjectData[], string>;
 
 export async function getProjects(): Promise<GetProjectsResponse> {
   try {
@@ -18,11 +17,12 @@ export async function getProjects(): Promise<GetProjectsResponse> {
       return {
         success: false,
         error: errorMessage ?? `ERROR ${response.status}`,
+        status: response.status,
       };
     }
 
-    return { success: true, data: data };
+    return { success: true, data: data, status: response.status };
   } catch {
-    return { success: false, error: 'Internal server error' };
+    return { success: false, error: 'Internal server error', status: 500 };
   }
 }
