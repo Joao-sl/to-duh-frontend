@@ -41,7 +41,10 @@ function TaskActions({ onDelete, openEditForm, onCopy }: TaskActionsProps) {
         description='The task will be permanently deleted.'
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
-        onConfirm={onDelete ?? (() => {})}
+        onConfirm={() => {
+          onDelete?.();
+          setShowDeleteDialog(false);
+        }}
       />
 
       <Tooltip>
