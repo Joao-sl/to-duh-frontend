@@ -7,7 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
-import { IconMenu2 } from '@tabler/icons-react';
+import {
+  IconLayoutSidebarLeftCollapseFilled,
+  IconLayoutSidebarLeftExpandFilled,
+} from '@tabler/icons-react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import {
   Sheet,
@@ -33,7 +36,7 @@ import {
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = '18rem';
+const SIDEBAR_WIDTH = '17rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
@@ -237,8 +240,8 @@ function Sidebar({
         className={cn(
           'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex',
           side === 'left'
-            ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
-            : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
+            ? 'left-0 group-data-[collapsible=offcanvas]:-left-(--sidebar-width)'
+            : 'right-0 group-data-[collapsible=offcanvas]:-right-(--sidebar-width)',
           // Adjust the padding for floating and inset variants.
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
@@ -250,7 +253,7 @@ function Sidebar({
         <div
           data-sidebar='sidebar'
           data-slot='sidebar-inner'
-          className='bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm'
+          className='bg-background group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm'
         >
           {children}
         </div>
@@ -264,7 +267,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, open } = useSidebar();
 
   return (
     <Button
@@ -279,7 +282,11 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <IconMenu2 />
+      {open ? (
+        <IconLayoutSidebarLeftCollapseFilled />
+      ) : (
+        <IconLayoutSidebarLeftExpandFilled />
+      )}
       <span className='sr-only'>Toggle Sidebar</span>
     </Button>
   );
@@ -316,7 +323,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {
       data-slot='sidebar-inset'
       className={cn(
         'bg-background relative flex w-full flex-1 flex-col',
-        'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
+        'md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-3xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2',
         className,
       )}
       {...props}
