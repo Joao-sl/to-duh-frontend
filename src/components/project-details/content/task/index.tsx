@@ -8,6 +8,8 @@ import { useTaskActions } from './use-task-actions';
 import { ConfirmDialog } from '@/components/confirm-dialog';
 import { UpdateTaskForm } from '@/components/task-form/update-task-form';
 import { format } from 'date-fns';
+import { playAudio } from '@/lib/sounds/play-audio';
+import { SOUNDS } from '@/lib/sounds/audios';
 
 type TaskItemProps = {
   task: TaskData;
@@ -45,6 +47,9 @@ function TaskItem({ task }: TaskItemProps) {
 
   async function handleChange(state: boolean) {
     if (isSaving) return;
+
+    playAudio(state ? SOUNDS.sparkle : SOUNDS.droplet);
+
     const previousState = checked;
 
     setChecked(state);
