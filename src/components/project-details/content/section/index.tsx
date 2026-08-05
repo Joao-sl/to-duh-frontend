@@ -38,7 +38,7 @@ function SectionItem({ projectId, section }: SectionItemProps) {
           <Tooltip>
             <CollapsibleTrigger
               asChild
-              className='absolute -left-8.5 sm:-left-[6%] md:-left-[7%]'
+              className='absolute -left-8.5 sm:left-[-6%] md:left-[-7%]'
             >
               <TooltipTrigger asChild>
                 <Button
@@ -76,7 +76,7 @@ function SectionItem({ projectId, section }: SectionItemProps) {
                 title={section.name}
                 className='flex items-center text-sm font-semibold'
               >
-                <span className='line-clamp-1'>{section.name} 2</span>
+                <span className='line-clamp-1'>{section.name}</span>
               </h2>
 
               <SectionDropdown
