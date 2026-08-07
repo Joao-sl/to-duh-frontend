@@ -80,7 +80,6 @@ function SectionItem({ projectId, section }: SectionItemProps) {
               </h2>
 
               <SectionDropdown
-                section={section}
                 openEditForm={() => setSectionEditForm(true)}
                 onArchive={() => handleSectionArchived(section.id)}
                 onDelete={() => handleSectionDeleted(section.id)}

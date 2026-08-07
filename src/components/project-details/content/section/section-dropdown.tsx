@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ConfirmDialog } from '@/components/confirm-dialog';
-import { type SectionData } from '@/lib/http/types/section';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +19,6 @@ import {
 } from '@tabler/icons-react';
 
 type SectionDropdownProps = {
-  section: Pick<SectionData, 'id' | 'name'>;
   openEditForm: () => void;
   onArchive: () => void;
   onDelete: () => void;
