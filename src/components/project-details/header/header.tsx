@@ -50,11 +50,6 @@ function ProjectDetailsHeader() {
   }
 
   function handleHeaderOnKeyDown(event: React.KeyboardEvent) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      setShowEditForm(true);
-    }
-
     if (event.key === 'Escape') {
       event.preventDefault();
       setShowEditForm(false);
@@ -86,18 +81,22 @@ function ProjectDetailsHeader() {
           />
         </div>
       ) : (
-        <div
-          onClick={() => setShowEditForm(true)}
-          className='space-y-2'
-          tabIndex={0}
-          role='button'
-          aria-label='Edit project title and description'
-          onKeyDown={handleHeaderOnKeyDown}
-        >
-          <h1 className='text-3xl font-bold'>{board.name}</h1>
+        <div className='relative space-y-2'>
+          <button
+            type='button'
+            onClick={() => setShowEditForm(true)}
+            aria-label='Edit project title and description'
+            className='absolute inset-0 z-2'
+          />
+
+          <h1 className='text-3xl font-bold pointer-events-none'>
+            {board.name}
+          </h1>
 
           {board.description && (
-            <p className='text-muted-foreground'>{board.description}</p>
+            <p className='text-muted-foreground pointer-events-none'>
+              {board.description}
+            </p>
           )}
         </div>
       )}
