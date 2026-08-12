@@ -21,7 +21,7 @@ export default function AppLayout({ children, account }: AppLayoutProps) {
 
       <SidebarInset
         className={cn(
-          'h-svh md:h-[calc(100svh-1rem)] md:peer-data-[variant=inset]:rounded-2xl sm:px-2',
+          'h-svh md:h-[calc(100svh-1rem)] md:peer-data-[variant=inset]:rounded-2xl sm:p-2 overflow-hidden',
         )}
       >
         <div
