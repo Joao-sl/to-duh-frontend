@@ -4,11 +4,26 @@ import type { ApiResponse } from './types/api';
 
 export type GetProjectsResponse = ApiResponse<ProjectData[], string>;
 
-export async function getProjects(): Promise<GetProjectsResponse> {
+type Params = {
+  archived?: boolean;
+};
+
+export async function getProjects(
+  params: Params = {},
+): Promise<GetProjectsResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (params.archived !== undefined) {
+    searchParams.set('archived', String(params.archived));
+  }
+
   try {
-    const response = await fetchWithAuth(`${process.env.API_DOMAIN}/projects`, {
-      method: 'GET',
-    });
+    const response = await fetchWithAuth(
+      `${process.env.API_DOMAIN}/projects?${searchParams}`,
+      {
+        method: 'GET',
+      },
+    );
 
     const data = await response.json();
 
