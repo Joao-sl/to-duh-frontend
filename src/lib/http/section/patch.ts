@@ -13,7 +13,7 @@ export async function patchSection(
       body: JSON.stringify(data),
     });
 
-    const apiData = await response.json().catch(null);
+    const apiData = await response.json().catch(() => null);
 
     if (!response.ok) {
       const error = apiData.message || apiData.error;

@@ -9,7 +9,7 @@ export async function deleteTask(
     });
 
     if (!response.ok) {
-      const data = await response.json().catch(null);
+      const data = await response.json().catch(() => null);
       const error = data.message || data.error;
       return { success: false, error: error, status: response.status };
     }

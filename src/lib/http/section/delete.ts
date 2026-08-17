@@ -7,7 +7,7 @@ export async function deleteSection(
     const response = await fetch(`/api/sections/${id}`, { method: 'DELETE' });
 
     if (!response.ok) {
-      const data = await response.json().catch(null);
+      const data = await response.json().catch(() => null);
       const error = data.message || data.error;
       return {
         success: false,
