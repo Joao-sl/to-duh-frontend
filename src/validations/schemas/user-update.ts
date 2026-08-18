@@ -18,7 +18,7 @@ export const updateUserPasswordSchema = z
   });
 
 export const deleteUserSchema = z.object({
-  delete: z.string().refine(value => value.toLocaleLowerCase() === 'delete', {
+  delete: z.string().refine(value => value.toLowerCase() === 'delete', {
     error: 'You must type "DELETE" correctly',
   }),
 });

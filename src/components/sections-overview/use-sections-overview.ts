@@ -42,7 +42,7 @@ export function useSectionsOverview(initialData: SectionData[]) {
 
   const sections = useMemo(() => {
     const searched = sectionsData.filter(section =>
-      section.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()),
+      section.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
     return sortState
