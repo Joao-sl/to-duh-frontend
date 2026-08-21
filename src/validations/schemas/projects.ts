@@ -5,12 +5,11 @@ const projectFields = {
     .string()
     .min(1, { error: 'Name must have at least 1 character' })
     .max(80, { error: 'Name must have at most 80 characters' }),
-
   description: z
     .string()
     .max(255, { error: 'Description must have at most 255 characters' }),
-
   is_favorite: z.boolean({ error: 'Favorite must be a boolean value' }),
+  is_archived: z.boolean({ error: 'Archived status must be boolean' }),
 };
 
 export const createProjectSchema = z.object({
@@ -23,6 +22,7 @@ export const updateProjectSchema = z.object({
   name: projectFields.name.optional(),
   description: projectFields.description.nullish(),
   is_favorite: projectFields.is_favorite.nullish(),
+  is_archived: projectFields.is_archived.nullish(),
 });
 
 export type CreateProjectSchema = z.infer<typeof createProjectSchema>;
