@@ -2,13 +2,26 @@ import type { ApiResponse } from '../types/api';
 import type { SectionData } from '../types/section';
 import { fetchWithAuth } from '@/helpers/fetch-with-auth';
 
-export async function getSectionsList(): Promise<
-  ApiResponse<SectionData[], string>
-> {
+type Params = {
+  archived?: boolean;
+};
+
+export async function getSectionsList(
+  params: Params = {},
+): Promise<ApiResponse<SectionData[], string>> {
+  const searchParams = new URLSearchParams();
+
+  if (searchParams !== undefined) {
+    searchParams.set('archived', String(params.archived));
+  }
+
   try {
-    const response = await fetchWithAuth(`${process.env.API_DOMAIN}/sections`, {
-      method: 'GET',
-    });
+    const response = await fetchWithAuth(
+      `${process.env.API_DOMAIN}/sections?${searchParams}`,
+      {
+        method: 'GET',
+      },
+    );
 
     const data = await response.json();
 
