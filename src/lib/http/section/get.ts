@@ -11,7 +11,7 @@ export async function getSectionsList(
 ): Promise<ApiResponse<SectionData[], string>> {
   const searchParams = new URLSearchParams();
 
-  if (searchParams !== undefined) {
+  if (params.archived !== undefined) {
     searchParams.set('archived', String(params.archived));
   }
 
