@@ -31,3 +31,29 @@ export const PATCH = withValidatedBody(
     );
   },
 );
+
+export const DELETE = withValidatedBody(
+  null,
+  async (_data, _request, params) => {
+    const projectId = Number(params.id);
+
+    if (!Number.isInteger(projectId) || projectId < 0) {
+      return NextResponse.json(
+        { success: false, message: 'Invalid project id' },
+        { status: 400 },
+      );
+    }
+
+    const response = await apiClient.delete(`/projects/${projectId}`);
+
+    if (!response.ok) {
+      const json = await response.json();
+      return NextResponse.json(
+        { success: false, ...json },
+        { status: response.status },
+      );
+    }
+
+    return new NextResponse(null, { status: response.status });
+  },
+);
