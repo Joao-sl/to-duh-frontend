@@ -5,6 +5,7 @@ export type SectionData = {
   name: string;
   project_id: number;
   user_id: number;
+  is_archived: boolean;
   created_at: string;
   updated_at: string;
 };
