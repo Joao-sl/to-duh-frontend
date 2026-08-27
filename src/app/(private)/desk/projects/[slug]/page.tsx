@@ -1,5 +1,3 @@
-import Loading from './loading';
-import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { getProjectBoard } from '@/lib/http/get-project-board';
 import { ProjectDetailsLayout } from '@/components/project-details';
@@ -29,11 +27,11 @@ export default async function ProjectDetails({ params }: ProjectDetailsProps) {
   }
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <ProjectDetailsBreadcrumb />
       <Container>
         <ProjectDetailsLayout project={projectBoard.data} />
       </Container>
-    </Suspense>
+    </>
   );
 }
