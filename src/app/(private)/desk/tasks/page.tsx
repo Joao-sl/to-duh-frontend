@@ -1,5 +1,3 @@
-import Loading from './loading';
-import { Suspense } from 'react';
 import { type Metadata } from 'next';
 import { getTasksList } from '@/lib/http/task/get';
 import { TasksOverview } from '@/components/tasks-overview';
@@ -15,9 +13,5 @@ export default async function Tasks() {
     throw new Error('Tasks fetch error');
   }
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <TasksOverview initialData={tasks.data} />
-    </Suspense>
-  );
+  return <TasksOverview initialData={tasks.data} />;
 }

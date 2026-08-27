@@ -1,5 +1,3 @@
-import Loading from './loading';
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { getProjects } from '@/lib/http/get-projects';
 import { ProjectsOverview } from '@/components/projects-overview';
@@ -15,9 +13,5 @@ export default async function Projects() {
     throw new Error('Projects fetch error');
   }
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <ProjectsOverview initialData={projects.data} />
-    </Suspense>
-  );
+  return <ProjectsOverview initialData={projects.data} />;
 }

@@ -23,9 +23,5 @@ export default async function Sections() {
     throw new Error('Sections fetch error');
   }
 
-  return (
-    <Suspense fallback={<Loading />}>
-      <SectionsOverview initialData={sections.data} />
-    </Suspense>
-  );
+  return <SectionsOverview initialData={sections.data} />;
 }
